@@ -1,0 +1,27 @@
+POST http://localhost:3001/api/firms
+Content-Type: application/json
+
+{
+    "email": "b4@okhdfc.com",
+    "name": "hdfc-corps-4",
+    "address": "0xhdfc14",
+    "password": "abcxyz",
+    "type": "organisation",
+    "firmType": "Insurance Provider",
+    "insurees": [
+        {
+            "username": "sidharth",
+            "address": "0xB1B5C",
+            "typeOfInsurance": "health",
+            "premium": "30lac",
+            "claimStatus": "approved"
+        },
+        {
+            "username": "slakelime",
+            "address": "0xA2A13",
+            "typeOfInsurance": "life",
+            "premium": "1cr",
+            "claimStatus": "pending"
+        }
+    ]
+}

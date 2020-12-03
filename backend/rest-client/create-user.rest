@@ -1,0 +1,11 @@
+POST http://localhost:3001/api/signup 
+Content-Type: application/json
+
+{
+    "email": "sid@abc",
+    "username": "siddharth",
+    "address": "0xSID",
+    "password": "abcxyz",
+    "type": "individual",
+    "insurances": []    
+}
