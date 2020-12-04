@@ -40,13 +40,14 @@ export const validAddress = (value) => {
     if (value.length != 42) {
         return (
             <div className="alert alert-danger" role="alert">
-                Given address is not a valid address
+                The address must be 42 characters long
             </div>
         )
     }
 }
 export const validOrgtype = (value) => {
-    if (value !== 'Insurer' && value !== 'Hospital' && value !== 'Bank' ) {
+    value = value.toLowerCase()
+    if (value !== 'insurer' && value !== 'hospital' && value !== 'bank' ) {
         return (
             <div className="alert alert-danger" role="alert">
                 The organization should either be an insurance provider, bank, or a hospital

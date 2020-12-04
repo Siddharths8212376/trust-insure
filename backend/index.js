@@ -10,25 +10,9 @@ const SECRET = 'abc'
 app.use(cors())
 var jsonParser = bodyParser.json()
 app.get('/', (request, response) => {
-    response.send('<h3>Hello, Blockchain!!')
+    response.send('Insurance Reformed Backend Here.')
 })
-app.post('/api/users', jsonParser, async (request, response) => {
-    console.log(request.body)
-    const body = request.body
-    const saltRounds = 10
-    const passwordHash = await bcrypt.hash(body.password, saltRounds)
 
-    const user = new User({
-        email: body.email,
-        username: body.username,
-        address: body.address,
-        passwordHash,
-        type: body.type,
-        insurances: body.insurances
-    })
-    const savedUser = await user.save()
-    response.json(savedUser)
-})
 app.post('/api/signup', jsonParser, async (request, response) => {
     console.log(response.body)
     const body = request.body
