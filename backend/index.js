@@ -18,7 +18,12 @@ app.post('/api/signup', jsonParser, async (request, response) => {
     const body = request.body
     const saltRounds = 10
     const passwordHash = await bcrypt.hash(body.password, saltRounds)
-    const user = new User({
+    const emailExists = await(await User.find({})).map(user=>user.email)
+    const addressExists = await(await User.find({})).map(user=>user.address)
+    if (emailExists.includes(body.email)) response.status(400).send({ message: "The email you entered already exists!"})
+    if (addressExists.includes(body.address)) response.status(400).send({ message: "The address you entered already exists!"})
+    else {
+        const user = new User({
         email: body.email,
         username: body.username,
         address: body.address,
@@ -27,7 +32,9 @@ app.post('/api/signup', jsonParser, async (request, response) => {
         insurances: body.insurances
     })
     const savedUser = await user.save()
+    console.log(savedUser)
     response.json(savedUser)
+}
 })
 app.get('/api/users', async (request, response) => {
     const users = await User.find({})
@@ -38,7 +45,10 @@ app.post('/api/firms', jsonParser, async (request, response) => {
     const body = request.body
     const saltRounds = 10
     const passwordHash = await bcrypt.hash(body.password, saltRounds)
-    
+    const emailExists = await(await Firm.find({})).map(firm=>firm.email)
+    const addressExists = await(await Firm.find({})).map(firm=>firm.address)
+    if (emailExists.includes(body.email)) response.status(400).send({ message: "The email you entered already exists!"})
+    if (addressExists.includes(body.address)) response.status(400).send({ message: "The address you entered already exists!"}) 
     const firm = new Firm({
         email: body.email,
         name: body.name,
@@ -49,6 +59,7 @@ app.post('/api/firms', jsonParser, async (request, response) => {
         insurees: body.insurees
     })
     const savedFirm = await firm.save()
+    console.log(savedFirm)
     response.json(savedFirm)
 })
 app.get('/api/firms', async (request, response) => {

@@ -51,14 +51,15 @@ export const Individual = () => {
   
       if (checkBtn.current.context._errors.length === 0) {
         dispatch(registerUser(username, email, password, address, type, firmType))
-          .then(() => {
+          .then((response) => {
+            console.log(response)
             setSuccessMessage('Success!! Redirecting to login..')
             setTimeout(() => {
               setSuccessMessage('')
               setSuccessful(true)
             }, 1500)
           })
-          .catch(() => {
+          .catch((response) => {
             setSuccessful(false)
           })
       }
