@@ -6,6 +6,9 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import Login from './components/LandingLogin'
 import Register from './components/Register'
 import ProfileHome from './components/ProfileHome'
+import InsurancesList from './components/InsurancesList'
+import InsuranceScreen from './components/insuranceScreen'
+import Apply from './components/applyInsurance'
 
 import { logout } from './actions/authActionCreater'
 import { history } from './helpers/history'
@@ -61,6 +64,9 @@ function App() {
           <Route exact path={["/", "/login"]} component={Login} />
           <Route exact path="/register" component={Register} />
           <Route exact path="/profilehome" component={ProfileHome} />
+          <Route exact path="/insurances-list" component={InsurancesList} /> 
+          <Route exact path="/insurance-screen/:id" component={InsuranceScreen} />
+          <Route exact path="/apply/:id" component={Apply}/>
         </Switch>
       </div>
       </div>

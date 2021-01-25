@@ -6,13 +6,31 @@ const User = require('./models/user')
 const Firm = require('./models/firm')
 const cors = require('cors')
 const jwt = require('jsonwebtoken')
+const InsuranceList = require('./models/insuranceList')
 const SECRET = 'abc'
 app.use(cors())
 var jsonParser = bodyParser.json()
 app.get('/', (request, response) => {
     response.send('Insurance Reformed Backend Here.')
 })
-
+app.post('/api/insurance-list', jsonParser, async (request, response)=> {
+    console.log(response.body)
+    const body = request.body
+    const insuranceInstance = new InsuranceList({
+        policyName: body.policyName,
+        insurerName: body.insurerName,
+        sumAssured: body.sumAssured,
+        premiumPayment: body.premiumPayment,
+        policyTerm: body.policyTerm
+    })
+    const savedInsuranceInstance = await insuranceInstance.save()
+    console.log(savedInsuranceInstance)
+    response.json(savedInsuranceInstance)
+})
+app.get('/api/insurance-list', async (request, response) => {
+    const insuranceList = await InsuranceList.find({})
+    response.json(insuranceList)
+})
 app.post('/api/signup', jsonParser, async (request, response) => {
     console.log(response.body)
     const body = request.body

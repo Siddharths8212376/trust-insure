@@ -1,5 +1,3 @@
-import { logout } from '../actions/authActionCreater'
-import { useState } from 'react'
 import { Redirect } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 const displayInsuranceDetails = (insurances) => (
@@ -27,7 +25,11 @@ const displayInsuranceDetails = (insurances) => (
           )}
         </tbody>
         </table>
+        <GetInsuranceButton />
     </div>
+)
+const GetInsuranceButton = () => (
+  <a href="/insurances-list" role="button" className="btn btn-danger">Buy Insurance</a>
 )
 const displayInsureeDetails = (insurees) => (
     <div>

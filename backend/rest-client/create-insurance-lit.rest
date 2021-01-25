@@ -1,0 +1,10 @@
+POST http://localhost:3001/api/insurance-list
+Content-Type: application/json
+
+{
+    "policyName": "Life Insurance",
+    "insurerName": "LIC India",
+    "sumAssured": 3500000,
+    "premiumPayment": true,
+    "policyTerm": 10
+}
