@@ -82,6 +82,7 @@ const Apply = () => {
             const insurances = response.data
             const insurance = insurances.find(ins => ins.id === id)
             setInsurance(insurance)
+        
         })
     }, [])
     const { user: currentUser } = useSelector((state) => state.authReducer)
@@ -101,7 +102,6 @@ const Apply = () => {
         <div>
         Address: 0xABCDEF..
         Form Here Add to the contract here!! 
-        We need web3 connection over here
         </div>
         <ApplicationForm aadhaar={aadhaar} setAadhaar={setAadhaar} name={name} setName={setName} gender={gender} setGender={setGender} pan={pan} setPan={setPan} bankuw={bankuw} setBankuw={setBankuw} meduw={meduw} setMeduw={setMeduw} insurance={insurance} />
         </div>
