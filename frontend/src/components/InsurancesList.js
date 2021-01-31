@@ -24,6 +24,7 @@ const InsurancesList = () => {
         return <Redirect to="/login" />
     } else {
         console.log('logged in!')
+        console.log(currentUser)
     } 
     return (
         <div>

@@ -47,4 +47,67 @@ mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true, useFind
 
 */
 const insuranceSchema = new mongoose.Schema({
+    viewed: {
+        type: Boolean
+    },
+    userAddress: {
+        type: String
+    },
+    id: {
+        type: Number
+    },
+    name: {
+        type: String
+    }, 
+    aadhaarNumber: {
+        type: Number
+    },
+    accountNumber: {
+        type: Number
+    }, 
+    PAN: {
+        type: String
+    }, 
+    gender: {
+        type: String
+    },
+    state: {
+        type: Number
+    },
+    insurerAddress: {
+        type: String
+    },
+    bankUWAddress: {
+        type: String
+    },
+    medUWAddress: {
+        type: String
+    }, 
+    policyName: {
+        type: String
+    }, 
+    sumAssured: {
+        type: Number
+    }, 
+    policyTerm: {
+        type: Number
+    },
+    paymentTerm: {
+        type: Number
+    },
+    premium: {
+        type: Boolean
+    }
 })
+
+insuranceSchema.plugin(uniqueValidator)
+insuranceSchema.set('toJSON', {
+    transform: (document, returnedObject) => {
+        returnedObject.id = returnedObject._id.toString()
+        delete returnedObject._id
+        delete returnedObject.__v
+    }
+})
+
+const Insurance = mongoose.model('Insurance', insuranceSchema)
+module.exports = Insurance

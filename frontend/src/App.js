@@ -10,6 +10,7 @@ import ProfileHome from './components/ProfileHome'
 import InsurancesList from './components/InsurancesList'
 import InsuranceScreen from './components/insuranceScreen'
 import Apply from './components/applyInsurance'
+import CreateInsurance from './components/createInsurance'
 
 import { logout } from './actions/authActionCreater'
 import { history } from './helpers/history'
@@ -104,6 +105,7 @@ function App() {
           <Route exact path="/insurances-list" component={InsurancesList} /> 
           <Route exact path="/insurance-screen/:id" component={InsuranceScreen} />
           <Route exact path="/apply/:id" component={Apply}/>
+          <Route exact path="/create-insurance" component={CreateInsurance}/>
         </Switch>
       </div>
       <button onClick={getInsuranceCount}>Get Count</button>

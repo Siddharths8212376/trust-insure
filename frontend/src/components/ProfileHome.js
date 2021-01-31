@@ -31,6 +31,10 @@ const displayInsuranceDetails = (insurances) => (
 const GetInsuranceButton = () => (
   <a href="/insurances-list" role="button" className="btn btn-danger">Buy Insurance</a>
 )
+const CreateInsuranceButton = () => (
+  // route to a page where in I can add an insurance
+  <a href="/create-insurance" role="button" className="btn btn-primary">Add Insurance</a>
+)
 const displayInsureeDetails = (insurees) => (
     <div>
         <table class="table" style={{width: "100%", overflowX:"scroll", display:"block"}}>
@@ -57,6 +61,7 @@ const displayInsureeDetails = (insurees) => (
           )}
         </tbody>
         </table>
+        <CreateInsuranceButton />
     </div>
 )
 const ProfileHome = () => {
@@ -71,6 +76,7 @@ const ProfileHome = () => {
     return (
         <div>
             <p>Your address: {currentUser.user.address}  Your email: {currentUser.user.email} </p>
+            {/* Add correct routing to these parts, from the insurance schema */}
             <div>{currentUser.user.type==='individual'
             ? displayInsuranceDetails(currentUser.user.insurances) 
             : displayInsureeDetails(currentUser.user.insurees) }

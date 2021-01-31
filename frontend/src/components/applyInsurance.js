@@ -8,8 +8,9 @@ import Web3 from 'web3'
 import BlockSecureDeployer from '../abi/BlockSecureDeployer.json'
 
 const listUrl = 'http://localhost:3001/api/insurance-list'
+const insUrl = 'http://localhost:3001/api/insurances'
 
-const ApplicationForm = ({ aadhaar, setAadhaar, name, setName, gender, setGender, pan, setPan, bankuw, setBankuw, meduw, setMeduw, insurance, account, setAccount }) => {
+const ApplicationForm = ({ aadhaar, setAadhaar, name, setName, gender, setGender, pan, setPan, bankuw, setBankuw, meduw, setMeduw, insurance, account, setAccount, currentUser }) => {
 
     const [deployerContract, setDeployerContract] = useState(null)
     const [accounts, setAccounts] = useState([])
@@ -64,10 +65,32 @@ const ApplicationForm = ({ aadhaar, setAadhaar, name, setName, gender, setGender
         // on successful submission, add it to blockchain, update in db, reroute to profile home
         // on failure, send the message, re - route to home
         const id = await deployerContract.methods.ApplyForInsurance(Number(aadhaar), gender, bankuw, Number(account), '0x00000000219ab540356cbb839cbe05303d7705fa', insurance.policyName, meduw, pan, insurance.sumAssured, insurance.policyTerm, 10, true ).send({from:'0xa9b46F159274661f74BCB1b37a2D68E148eFe369'})
+        // fetch the same insurance and return the id inside the function
         console.log(id, 'id here')
-        const awaitedInsurance = await deployerContract.methods.FetchInsuranceByIndex(3).call({from: '0xa9b46F159274661f74BCB1b37a2D68E148eFe369'})
+        const currentIdx = await deployerContract.methods.insuranceCounter().call()
+        const awaitedInsurance = await deployerContract.methods.FetchInsuranceByIndex(currentIdx-1).call({from: '0xa9b46F159274661f74BCB1b37a2D68E148eFe369'})
+        // we need to map each insurance with it's idx into the database
 
         console.log(awaitedInsurance, 'here')
+        axios.post(insUrl, {
+            userAddress: currentUser.user.address,
+            id: currentIdx,
+            name: name,
+            aadhaarNumber: Number(aadhaar),
+            accountNumber: Number(account),
+            PAN: pan,
+            gender: gender,
+            state: 0,
+            insurerAddress:'0x00000000219ab540356cbb839cbe05303d7705fa', 
+            bankUWAddress: bankuw,
+            medUWAddress: meduw,
+            policyName: insurance.policyName,
+            sumAssured: insurance.sumAssured,
+            policyTerm: insurance.policyTerm,
+            paymentTerm: insurance.paymentTerm,
+            premium: true
+        })
+        console.log(currentUser.user.address, "logging user address")
     }
     return (
     <div>
@@ -130,7 +153,7 @@ const Apply = () => {
         })
     }, [])
     const { user: currentUser } = useSelector((state) => state.authReducer)
-    console.log(currentUser)
+    console.log(currentUser, 'current user here')
     if (!currentUser) {
         return <Redirect to="/login" />
     } else {
@@ -147,7 +170,7 @@ const Apply = () => {
         Address: 0xABCDEF..
         Form Here Add to the contract here!! 
         </div>
-        <ApplicationForm aadhaar={aadhaar} setAadhaar={setAadhaar} name={name} setName={setName} gender={gender} setGender={setGender} pan={pan} setPan={setPan} bankuw={bankuw} setBankuw={setBankuw} meduw={meduw} setMeduw={setMeduw} insurance={insurance} account={account} setAccount={setAccount} />
+        <ApplicationForm aadhaar={aadhaar} setAadhaar={setAadhaar} name={name} setName={setName} gender={gender} setGender={setGender} pan={pan} setPan={setPan} bankuw={bankuw} setBankuw={setBankuw} meduw={meduw} setMeduw={setMeduw} insurance={insurance} account={account} setAccount={setAccount} currentUser={currentUser}/>
         </div>
     )
 }

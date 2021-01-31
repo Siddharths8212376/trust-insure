@@ -7,6 +7,7 @@ const Firm = require('./models/firm')
 const cors = require('cors')
 const jwt = require('jsonwebtoken')
 const InsuranceList = require('./models/insuranceList')
+const Insurance = require('./models/insurance')
 const SECRET = 'abc'
 app.use(cors())
 var jsonParser = bodyParser.json()
@@ -17,11 +18,13 @@ app.post('/api/insurance-list', jsonParser, async (request, response)=> {
     console.log(response.body)
     const body = request.body
     const insuranceInstance = new InsuranceList({
-        policyName: body.policyName,
+        policyType: body.policyType,
         insurerName: body.insurerName,
+        insurerAddress: body.insurerAddress,
         sumAssured: body.sumAssured,
         premiumPayment: body.premiumPayment,
-        policyTerm: body.policyTerm
+        policyTerm: body.policyTerm,
+        paymentTerm: body.paymentTerm
     })
     const savedInsuranceInstance = await insuranceInstance.save()
     console.log(savedInsuranceInstance)
@@ -30,6 +33,36 @@ app.post('/api/insurance-list', jsonParser, async (request, response)=> {
 app.get('/api/insurance-list', async (request, response) => {
     const insuranceList = await InsuranceList.find({})
     response.json(insuranceList)
+})
+app.post('/api/insurances', jsonParser, async (request, response) => {
+    console.log(response.body) 
+    const body = request.body
+    const insurance = new Insurance({
+        viewed: false,
+        userAddress: body.userAddress,
+        id: body.id,
+        name: body.name,
+        aadhaarNumber: body.aadhaarNumber,
+        accountNumber: body.accountNumber,
+        PAN: body.PAN,
+        gender: body.gender,
+        state: body.state,
+        insurerAddress: body.insurerAddress,
+        bankUWAddress: body.bankUWAddress,
+        medUWAddress: body.medUWAddress,
+        policyName: body.policyName,
+        sumAssured: body.sumAssured,
+        policyTerm: body.policyTerm,
+        paymentTerm: body.paymentTerm,
+        premium: body.premium
+    })
+    const savedInsurance = await insurance.save()
+    console.log(savedInsurance)
+    response.json(savedInsurance)
+})
+app.get('/api/insurances', async (request, response) => {
+    const insurances = await Insurance.find({})
+    response.json(insurances)
 })
 app.post('/api/signup', jsonParser, async (request, response) => {
     console.log(response.body)

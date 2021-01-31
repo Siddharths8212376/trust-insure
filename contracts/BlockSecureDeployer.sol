@@ -153,7 +153,7 @@ contract BlockSecureDeployer {
         // add to the list of insurances
         insurances.push(insurance);
         insuranceCounter++;
-        return (insuranceCounter-1);
+        return (uint(insuranceCounter-1));
     }
     function FetchInsuranceByIndex(uint idx) public view returns (int aadhaarCardNumber, int accountNumber, string memory pan, uint state) {
         SecureInsuranceContract SIC = SecureInsuranceContract(insurances[idx]);
