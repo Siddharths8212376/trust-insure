@@ -7,11 +7,11 @@ import { REGISTER_SUCCESS,
          CLEAR_MESSAGE 
         } from './actionTypes'
 import AuthService from '../services/auth.service'
-export const registerUser = (username, email, password, address, type, firmType) => (dispatch) => {
-    console.log(username, email, password, address, type, firmType)
-    return AuthService.registerUser(username, email, password, address, type, firmType).then(
+export const registerUser = (username, email, password, aadhaarCardNumber, address, type, firmType) => (dispatch) => {
+    console.log(username, email, password, aadhaarCardNumber, address, type, firmType, 'inside action creator')
+    return AuthService.registerUser(username, email, password, aadhaarCardNumber, address, type, firmType).then(
         (response) => {
-            console.log(response.data)
+            console.log(response.data, 'success!!')
             dispatch({
                 type: REGISTER_SUCCESS,
             })
@@ -21,6 +21,7 @@ export const registerUser = (username, email, password, address, type, firmType)
             })
             return Promise.resolve()
         }, (error) => {
+            console.log(error)
             const message = (error.response
                 && error.response.data
                 && error.response.data.message) 

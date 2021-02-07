@@ -30,7 +30,7 @@ const InsurancesList = () => {
         <div>
             <ul>
             {insuranceList.map((insurance)=>
-                <li key={insurance.id}><span><bold>{insurance.policyName}</bold> Insured By: {insurance.insurerName} Sum Assured: {insurance.sumAssured} Term: {insurance.policyTerm}</span>
+                <li key={insurance.id}><span><bold>Name: {insurance.policyName}</bold> Insured By: {insurance.insurerName} Address: {insurance.insurerAddress} Sum Assured: {insurance.sumAssured} Term: {insurance.policyTerm}</span>
                     <a href={`/insurance-screen/${insurance.id}`} role="button" className="btn btn-primary">Show Details</a> 
                 </li>
             )}

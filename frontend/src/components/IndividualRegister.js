@@ -17,6 +17,7 @@ export const Individual = () => {
     const [successful, setSuccessful] = useState(false)
     const [successMessage, setSuccessMessage] = useState('')
     const [address, setAddress] = useState("")
+    const [aadhaarCardNumber, setAadhaarCardNumber] = useState('')
     const type = 'individual'
     const firmType = 'None'
   
@@ -41,7 +42,11 @@ export const Individual = () => {
     const onChangeAddress = (e) => {
         setAddress(e.target.value)
     }
-  
+
+    const onChangeAadhaar = (e) => {
+        setAadhaarCardNumber(e.target.value)
+    }
+    
     const handleRegister = (e) => {
       e.preventDefault()
   
@@ -50,9 +55,9 @@ export const Individual = () => {
       form.current.validateAll()
   
       if (checkBtn.current.context._errors.length === 0) {
-        dispatch(registerUser(username, email, password, address, type, firmType))
+        dispatch(registerUser(username, email, password, Number(aadhaarCardNumber), address, type, firmType))
           .then((response) => {
-            console.log(response)
+            console.log(response, 'registered user!')
             setSuccessMessage('Success!! Redirecting to login..')
             setTimeout(() => {
               setSuccessMessage('')
@@ -98,6 +103,17 @@ export const Individual = () => {
                   value={email}
                   onChange={onChangeEmail}
                   validations={[required, validEmail]}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="username">Aadhaar Card Number</label>
+                <Input
+                  type="text"
+                  className="form-control"
+                  name="aadhaar"
+                  value={aadhaarCardNumber}
+                  onChange={onChangeAadhaar}
+                  validations={[required]}
                 />
               </div>
               <div className="form-group">

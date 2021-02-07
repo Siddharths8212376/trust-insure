@@ -1,13 +1,13 @@
-import { Redirect } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
 
 const listUrl = 'http://localhost:3001/api/insurance-list'
-const CreateForm = ({ currentUser, policyType, setPolicyType, sumAssured, setSumAssured, policyTerm, setPolicyTerm, premiumPayment, setPremiumPayment, paymentTerm, setPaymentTerm }) => {
-    const handlePolicyType = (e) => {
-        setPolicyType(e.target.value)
+const CreateForm = ({ currentUser, policyName, setPolicyName, sumAssured, setSumAssured, policyTerm, setPolicyTerm, premiumPayment, setPremiumPayment, paymentTerm, setPaymentTerm, setCreatedMessage, setInsuranceCreated}) => {
+    const handlePolicyName = (e) => {
+        setPolicyName(e.target.value)
     }
     const handleSumAssured = (e) => {
         setSumAssured(e.target.value)
@@ -23,15 +23,26 @@ const CreateForm = ({ currentUser, policyType, setPolicyType, sumAssured, setSum
     }
     const handleSubmit = async (e) => {
         e.preventDefault()
-        console.log(policyType, sumAssured, premiumPayment, policyTerm, paymentTerm, currentUser.user.address, currentUser.user.email)
+        console.log(policyName, sumAssured, premiumPayment, policyTerm, paymentTerm, currentUser.user.address, currentUser.user.email)
         await axios.post(listUrl, {
-            policyType: policyType,
+            policyName: policyName,
             insurerAddress: currentUser.user.address,
             insurerName: currentUser.user.email,
             sumAssured: Number(sumAssured),
             premiumPayment: premiumPayment,
             policyTerm: Number(policyTerm),
             paymentTerm: Number(paymentTerm)
+        })
+        .then((response) => {
+            console.log(response.data)
+            setCreatedMessage('Success!!')
+            setTimeout(() => {
+                setCreatedMessage('')
+                setInsuranceCreated(true)
+            }, 1500)
+        })
+        .catch((err) => {
+            setInsuranceCreated(false)
         })
     }
     
@@ -40,8 +51,8 @@ const CreateForm = ({ currentUser, policyType, setPolicyType, sumAssured, setSum
             <form>
 
             <div className="form-group">
-                <label for="policytype"><bold>Policy Type</bold></label>
-                <input type="text" className="form-control" id="InputPolicyType" value={policyType} placeholder="Enter Policy Type" onChange={handlePolicyType}/>
+                <label for="policyname"><bold>Policy Name</bold></label>
+                <input type="text" className="form-control" id="InputPolicyType" value={policyName} placeholder="Enter Policy Type" onChange={handlePolicyName}/>
             </div>
             <div className="form-group">
                 <label for="sumAssured"><bold>Sum Assured</bold></label>
@@ -78,19 +89,30 @@ const CreateForm = ({ currentUser, policyType, setPolicyType, sumAssured, setSum
         </div>
     )
 }
+const NotifyInsuranceCreated = ({ createdMessage }) => {
+    return (
+        <div role="alert" className="alert alert-primary" style={{margin:"30px"}}>
+        {createdMessage}
+        </div>
+    )
+}
 const CreateInsurance = () => {
     // provide a form here
     const { user: currentUser } = useSelector((state) => state.authReducer)
     console.log(currentUser, 'is creating an insurance here')
-    const [policyType, setPolicyType] = useState('')
+    const [policyName, setPolicyName] = useState('')
     const [sumAssured, setSumAssured] = useState('')
     const [policyTerm, setPolicyTerm] = useState('')
     const [paymentTerm, setPaymentTerm] = useState('')
     const [premiumPayment, setPremiumPayment] = useState(true)
+    const [insuranceCreated, setInsuranceCreated] = useState(false)
+    const [createdMessage, setCreatedMessage] = useState('')
     // resolve the radio issue here
+    if (insuranceCreated) return <Redirect to="/profilehome" />
     return (
         <div>Create Insurance Here!
-        <CreateForm currentUser={currentUser} policyType={policyType} setPolicyType={setPolicyType} sumAssured={sumAssured} setSumAssured={setSumAssured}  policyTerm={policyTerm} setPolicyTerm={setPolicyTerm} premiumPayment={premiumPayment} setPremiumPayment={setPremiumPayment} paymentTerm={paymentTerm} setPaymentTerm={setPaymentTerm} />
+        <CreateForm currentUser={currentUser} policyName={policyName} setPolicyName={setPolicyName} sumAssured={sumAssured} setSumAssured={setSumAssured}  policyTerm={policyTerm} setPolicyTerm={setPolicyTerm} premiumPayment={premiumPayment} setPremiumPayment={setPremiumPayment} paymentTerm={paymentTerm} setPaymentTerm={setPaymentTerm} setCreatedMessage={setCreatedMessage} setInsuranceCreated={setInsuranceCreated}/>
+        <NotifyInsuranceCreated createdMessage={createdMessage} />
         </div>
     )
 }

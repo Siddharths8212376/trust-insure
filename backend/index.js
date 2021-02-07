@@ -18,7 +18,7 @@ app.post('/api/insurance-list', jsonParser, async (request, response)=> {
     console.log(response.body)
     const body = request.body
     const insuranceInstance = new InsuranceList({
-        policyType: body.policyType,
+        policyName: body.policyName,
         insurerName: body.insurerName,
         insurerAddress: body.insurerAddress,
         sumAssured: body.sumAssured,
@@ -65,7 +65,7 @@ app.get('/api/insurances', async (request, response) => {
     response.json(insurances)
 })
 app.post('/api/signup', jsonParser, async (request, response) => {
-    console.log(response.body)
+    console.log(request.body, 'request to register here')
     const body = request.body
     const saltRounds = 10
     const passwordHash = await bcrypt.hash(body.password, saltRounds)
@@ -77,6 +77,7 @@ app.post('/api/signup', jsonParser, async (request, response) => {
         const user = new User({
         email: body.email,
         username: body.username,
+        aadhaarCardNumber: body.aadhaarCardNumber,
         address: body.address,
         passwordHash,
         type: body.type,

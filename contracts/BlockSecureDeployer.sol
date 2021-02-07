@@ -155,9 +155,9 @@ contract BlockSecureDeployer {
         insuranceCounter++;
         return (uint(insuranceCounter-1));
     }
-    function FetchInsuranceByIndex(uint idx) public view returns (int aadhaarCardNumber, int accountNumber, string memory pan, uint state) {
+    function FetchInsuranceByIndex(uint idx) public view returns (int aadhaarCardNumber, int accountNumber, string memory pan, uint state, address bankName, address insurerName, address hospitalName, string memory policyName, int sumAssured, int policyTerm, int paymentTerm, bool premiumPayment) {
         SecureInsuranceContract SIC = SecureInsuranceContract(insurances[idx]);
-        return (SIC.AadhaarCardNumber(), SIC.AccountNumber(), SIC.PAN(), uint(SIC.State()));
+        return (SIC.AadhaarCardNumber(), SIC.AccountNumber(), SIC.PAN(), uint(SIC.State()), SIC.BankName(), SIC.InsurerName(), SIC.HospitalName(), SIC.PolicyName(), SIC.SumAssured(), SIC.PolicyTerm(), SIC.PaymentTerm(), SIC.PremiumPayment());
     }
     function ConfirmDetails(uint idx) public returns (uint) {
         // fetch the required insurance

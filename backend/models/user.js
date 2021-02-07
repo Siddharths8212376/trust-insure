@@ -10,6 +10,10 @@ const userSchema = new mongoose.Schema({
     username: {
         type: String, 
     }, 
+    aadhaarCardNumber: {
+        type: Number,
+        unique: true
+    },
     address: {
         type: String,
         unique: true

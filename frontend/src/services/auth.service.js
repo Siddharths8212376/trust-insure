@@ -2,17 +2,21 @@ import axios from 'axios'
 
 const url = 'http://localhost:3001/api/'
 
-const registerUser = (username, email, password, address, type, firmtype) => {
+const registerUser = (username, email, password, aadhaarCardNumber, address, type, firmtype) => {
     const curList = []
     return axios.post(url + 'signup', {
         username, 
         email,
         password,
+        aadhaarCardNumber,
         address,
         type,
         firmtype,
         curList 
     })
+    // .then((response) => {
+    //     console.log(response.data, 'inside service')
+    // })
 }
 const registerFirm = (username, email, password, address, type, firmtype) => {
     const curList = []

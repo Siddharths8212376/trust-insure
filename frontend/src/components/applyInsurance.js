@@ -10,7 +10,7 @@ import BlockSecureDeployer from '../abi/BlockSecureDeployer.json'
 const listUrl = 'http://localhost:3001/api/insurance-list'
 const insUrl = 'http://localhost:3001/api/insurances'
 
-const ApplicationForm = ({ aadhaar, setAadhaar, name, setName, gender, setGender, pan, setPan, bankuw, setBankuw, meduw, setMeduw, insurance, account, setAccount, currentUser }) => {
+const ApplicationForm = ({ aadhaar, setAadhaar, name, setName, gender, setGender, pan, setPan, bankuw, setBankuw, meduw, setMeduw, insurance, account, setAccount, currentUser, setAppliedSuccessfully, setSuccessMessage }) => {
 
     const [deployerContract, setDeployerContract] = useState(null)
     const [accounts, setAccounts] = useState([])
@@ -61,14 +61,14 @@ const ApplicationForm = ({ aadhaar, setAadhaar, name, setName, gender, setGender
     const handleSubmit = async (e) => {
         e.preventDefault()
         const web3 = new Web3(Web3.givenProvider || "http://localhost:7545")
-        console.log(aadhaar, pan, name, gender, bankuw, meduw, insurance.policyName, insurance.policyTerm, insurance.insurerName, insurance.sumAssured, 'submitted')
+        console.log(aadhaar, pan, name, gender, bankuw, meduw, insurance.policyName, insurance.policyTerm, insurance.insurerName, insurance.insurerAddress, insurance.sumAssured, 'submitted')
         // on successful submission, add it to blockchain, update in db, reroute to profile home
         // on failure, send the message, re - route to home
-        const id = await deployerContract.methods.ApplyForInsurance(Number(aadhaar), gender, bankuw, Number(account), '0x00000000219ab540356cbb839cbe05303d7705fa', insurance.policyName, meduw, pan, insurance.sumAssured, insurance.policyTerm, 10, true ).send({from:'0xa9b46F159274661f74BCB1b37a2D68E148eFe369'})
+        const id = await deployerContract.methods.ApplyForInsurance(Number(aadhaar), gender, bankuw, Number(account), insurance.insurerAddress, insurance.policyName, meduw, pan, insurance.sumAssured, insurance.policyTerm, 10, true ).send({from:currentUser.user.address})
         // fetch the same insurance and return the id inside the function
         console.log(id, 'id here')
         const currentIdx = await deployerContract.methods.insuranceCounter().call()
-        const awaitedInsurance = await deployerContract.methods.FetchInsuranceByIndex(currentIdx-1).call({from: '0xa9b46F159274661f74BCB1b37a2D68E148eFe369'})
+        const awaitedInsurance = await deployerContract.methods.FetchInsuranceByIndex(currentIdx-1).call({from: currentUser.user.address})
         // we need to map each insurance with it's idx into the database
 
         console.log(awaitedInsurance, 'here')
@@ -81,7 +81,7 @@ const ApplicationForm = ({ aadhaar, setAadhaar, name, setName, gender, setGender
             PAN: pan,
             gender: gender,
             state: 0,
-            insurerAddress:'0x00000000219ab540356cbb839cbe05303d7705fa', 
+            insurerAddress:insurance.insurerAddress, 
             bankUWAddress: bankuw,
             medUWAddress: meduw,
             policyName: insurance.policyName,
@@ -89,6 +89,17 @@ const ApplicationForm = ({ aadhaar, setAadhaar, name, setName, gender, setGender
             policyTerm: insurance.policyTerm,
             paymentTerm: insurance.paymentTerm,
             premium: true
+        })
+        .then((response) => {
+            console.log(response.data)
+            setSuccessMessage('Success!!')
+            setTimeout(() => {
+                setSuccessMessage('')
+                setAppliedSuccessfully(true)
+            }, 1500)
+        })
+        .catch((err) => {
+            setAppliedSuccessfully(false)
         })
         console.log(currentUser.user.address, "logging user address")
     }
@@ -133,6 +144,9 @@ const ApplicationForm = ({ aadhaar, setAadhaar, name, setName, gender, setGender
     </div>
 )
 }
+const SuccessMessage = ({successMessage}) => {
+    <div>{successMessage}</div>
+}
 const Apply = () => {
     const [insurance, setInsurance] = useState([])
     const [aadhaar, setAadhaar] = useState('')
@@ -142,6 +156,8 @@ const Apply = () => {
     const [bankuw, setBankuw] = useState('')
     const [meduw, setMeduw] = useState('')
     const [account, setAccount] = useState('')
+    const [successMessage, setSuccessMessage] = useState('')
+    const [appliedSuccessfully, setAppliedSuccessfully] = useState(false)
 
     const id = useParams().id
     useEffect(() => {
@@ -149,7 +165,7 @@ const Apply = () => {
             const insurances = response.data
             const insurance = insurances.find(ins => ins.id === id)
             setInsurance(insurance)
-        
+            console.log(insurance, 'hey its the insurance')
         })
     }, [])
     const { user: currentUser } = useSelector((state) => state.authReducer)
@@ -159,18 +175,19 @@ const Apply = () => {
     } else {
         console.log('logged in!')
     } 
-
+    if (appliedSuccessfully) return <Redirect to="/profilehome" />
     return (
         <div>
         Apply Here
         <div>
-        <span><bold>{insurance.policyName}</bold> Insured By: {insurance.insurerName} Sum Assured: {insurance.sumAssured} Term: {insurance.policyTerm}</span>
+        <span><bold>{insurance.policyName}</bold> Insured By: {insurance.insurerName} Address: {insurance.insurerAddress} Sum Assured: {insurance.sumAssured} Term: {insurance.policyTerm}</span>
         </div>
         <div>
         Address: 0xABCDEF..
         Form Here Add to the contract here!! 
         </div>
-        <ApplicationForm aadhaar={aadhaar} setAadhaar={setAadhaar} name={name} setName={setName} gender={gender} setGender={setGender} pan={pan} setPan={setPan} bankuw={bankuw} setBankuw={setBankuw} meduw={meduw} setMeduw={setMeduw} insurance={insurance} account={account} setAccount={setAccount} currentUser={currentUser}/>
+        <ApplicationForm aadhaar={aadhaar} setAadhaar={setAadhaar} name={name} setName={setName} gender={gender} setGender={setGender} pan={pan} setPan={setPan} bankuw={bankuw} setBankuw={setBankuw} meduw={meduw} setMeduw={setMeduw} insurance={insurance} account={account} setAccount={setAccount} currentUser={currentUser} setAppliedSuccessfully={setAppliedSuccessfully} setSuccessMessage={setSuccessMessage}/>
+        {appliedSuccessfully&&<SuccessMessage successMessage={successMessage}/>}
         </div>
     )
 }

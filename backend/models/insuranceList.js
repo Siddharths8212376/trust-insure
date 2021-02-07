@@ -3,7 +3,7 @@ const uniqueValidator = require('mongoose-unique-validator')
 const url = 'mongodb+srv://siddharth-s:3012@cluster0.cbsfq.mongodb.net/block-insure-updated?retryWrites=true&w=majority'
 mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true })
 const insuranceListSchema = new mongoose.Schema({
-    policyType: {
+    policyName: {
         type: String
     }, 
     insurerName: {
