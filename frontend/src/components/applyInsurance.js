@@ -62,9 +62,10 @@ const ApplicationForm = ({ aadhaar, setAadhaar, name, setName, gender, setGender
         e.preventDefault()
         const web3 = new Web3(Web3.givenProvider || "http://localhost:7545")
         console.log(aadhaar, pan, name, gender, bankuw, meduw, insurance.policyName, insurance.policyTerm, insurance.insurerName, insurance.insurerAddress, insurance.sumAssured, 'submitted')
+        console.log(currentUser.user.address, 'sender address here')
         // on successful submission, add it to blockchain, update in db, reroute to profile home
         // on failure, send the message, re - route to home
-        const id = await deployerContract.methods.ApplyForInsurance(Number(aadhaar), gender, bankuw, Number(account), insurance.insurerAddress, insurance.policyName, meduw, pan, insurance.sumAssured, insurance.policyTerm, 10, true ).send({from:currentUser.user.address})
+        const id = await deployerContract.methods.ApplyForInsurance(Number(aadhaar), gender, bankuw, Number(account), insurance.insurerAddress, insurance.policyName, meduw, pan, insurance.sumAssured, insurance.policyTerm, 10, true ).send({from: currentUser.user.address})
         // fetch the same insurance and return the id inside the function
         console.log(id, 'id here')
         const currentIdx = await deployerContract.methods.insuranceCounter().call()

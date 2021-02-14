@@ -7,6 +7,7 @@ import Web3 from 'web3'
 import BlockSecureDeployer from '../abi/BlockSecureDeployer.json'
 
 const insUrl = 'http://localhost:3001/api/insurances'
+const userUrl = 'http://localhost:3001/api/users'
 
 
 const displayInsuranceDetails = (insurances) => (
@@ -18,20 +19,20 @@ const displayInsuranceDetails = (insurances) => (
       <th scope="col">ID</th>
       <th scope="col">Provider</th>
       <th scope="col">Type</th>
-      <th scope="col">Premium</th>
+      <th scope="col">Sum Assured</th>
       <th scope="col">Claim Status</th>
     </tr>
   </thead>
   <tbody>
-      {/* {insurances.map((insurance) => 
+      {insurances.map((insurance) => 
       <tr>
-        <th scope="row">{insurance._id}</th>
-        <td>{insurance.insurer}</td>
-        <td>{insurance.typeOfInsurance}</td>
-        <td>{insurance.premium}</td>
-        <td>{insurance.claimStatus}</td>
+        <th scope="row">{insurance.ID}</th>
+        <td>{insurance[6]}</td>
+        <td>{insurance[7]}</td>
+        <td>{insurance[8]}</td>
+        <td>false</td>
         </tr>
-          )} */}
+          )}
         </tbody>
         </table>
         <GetInsuranceButton />
@@ -44,28 +45,32 @@ const CreateInsuranceButton = () => (
   // route to a page where in I can add an insurance
   <a href="/create-insurance" role="button" className="btn btn-primary">Add Insurance</a>
 )
-const displayInsureeDetails = (insurees) => (
+const displayInsureeDetails = (insurances) => (
     <div>
         <table class="table" style={{width: "100%", overflowX:"scroll", display:"block"}}>
   <thead>
     <tr>
       <th scope="col">ID</th>
       <th scope="col">Username</th>
-      <th scope="col">Address</th>
+      <th scope="col">Aadhaar Card Number</th>
+      <th scope="col">EthereumAddress</th>
+      <th scope="col">Email</th>
       <th scope="col">Type of Insurance</th>
       <th scope="col">Premium</th>
-      <th scope="col">Claim Status</th>
+      <th scope="col">Current State</th>
     </tr>
   </thead>
   <tbody>
-      {insurees.map((insuree) => 
+      {insurances.map((insuree) => 
       <tr>
-        <th scope="row">{insuree._id}</th>
+        <th scope="row">{insuree.ID}</th>
         <td>{insuree.username}</td>
+        <td>{insuree[0]}</td>
         <td>{insuree.address}</td>
-        <td>{insuree.typeOfInsurance}</td>
-        <td>{insuree.premium}</td>
-        <td>{insuree.claimStatus}</td>
+        <td>{insuree.email}</td>
+        <td>{insuree[7]}</td>
+        <td>{insuree[8]}</td>
+        <td>{insuree[3]}</td>
         </tr>
           )}
         </tbody>
@@ -114,10 +119,30 @@ const ProfileHome = () => {
           setInsurances(FetchedInsurances)
           console.log(FetchedInsurances, 'after fetch', insurances)
           } else {
+            const FetchedInsurances = []
             for (let i = 0; i < currentIdx; i++) {
               const awaitedInsurance = await deployerContract.methods.FetchInsuranceByIndex(i).call({from: currentUser.user.address})           
-              console.log(awaitedInsurance, i, ' ith here')
+              console.log(awaitedInsurance, i, currentUser.user.address,  ' ith here')
+              if (awaitedInsurance[5] === currentUser.user.address) {
+                console.log('found match!!!')
+                awaitedInsurance.ID = i
+                let users = await axios.get(userUrl)
+                // console.log(users, 'users here')
+                users = users.data
+                for (let uIdx = 0; uIdx < users.length; uIdx++) {
+                  // console.log(users[uIdx], 'ith user', users[uIdx].aadhaarCardNumber, 'adhar match', awaitedInsurance[0])
+                  if (Number(users[uIdx].aadhaarCardNumber) === Number(awaitedInsurance[0])){
+                    awaitedInsurance.username = users[uIdx].username
+                    awaitedInsurance.email = users[uIdx].email
+                    awaitedInsurance.address = users[uIdx].address
+                    // console.log('found the matching users')
+                  }
+                }
+                FetchedInsurances.push(awaitedInsurance)
+              }
             }
+            setInsurances(FetchedInsurances)
+            // console.log(FetchedInsurances, 'fetched all insurances')
           }
         }
       }
@@ -138,7 +163,7 @@ const ProfileHome = () => {
             {/* Add correct routing to these parts, from the insurance schema */}
             <div>{currentUser.user.type==='individual'
             ? displayInsuranceDetails(insurances) 
-            : displayInsureeDetails(currentUser.user.insurees) }
+            : displayInsureeDetails(insurances) }
             </div>
         </div>
     )
