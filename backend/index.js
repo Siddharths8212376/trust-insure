@@ -40,7 +40,7 @@ app.post('/api/insurances', jsonParser, async (request, response) => {
     const insurance = new Insurance({
         viewed: false,
         userAddress: body.userAddress,
-        id: body.id,
+        ID: body.id,
         name: body.name,
         aadhaarNumber: body.aadhaarNumber,
         accountNumber: body.accountNumber,

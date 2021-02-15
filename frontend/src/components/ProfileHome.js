@@ -21,16 +21,18 @@ const displayInsuranceDetails = (insurances) => (
       <th scope="col">Type</th>
       <th scope="col">Sum Assured</th>
       <th scope="col">Claim Status</th>
+      <th scope="col">Details</th>
     </tr>
   </thead>
   <tbody>
       {insurances.map((insurance) => 
       <tr>
         <th scope="row">{insurance.ID}</th>
-        <td>{insurance[6]}</td>
-        <td>{insurance[7]}</td>
-        <td>{insurance[8]}</td>
-        <td>false</td>
+        <td>{insurance.insurerAddress}</td>
+        <td>{insurance.policyName}</td>
+        <td>{insurance.sumAssured}</td>
+        <td>{insurance.state}</td>
+        <td><a href={`/insurance-status/${insurance.ID}`} role="button" className="btn btn-primary">Info</a></td>
         </tr>
           )}
         </tbody>
@@ -58,6 +60,7 @@ const displayInsureeDetails = (insurances) => (
       <th scope="col">Type of Insurance</th>
       <th scope="col">Premium</th>
       <th scope="col">Current State</th>
+      <th scope="col">Details</th>
     </tr>
   </thead>
   <tbody>
@@ -71,6 +74,7 @@ const displayInsureeDetails = (insurances) => (
         <td>{insuree[7]}</td>
         <td>{insuree[8]}</td>
         <td>{insuree[3]}</td>
+        <td><button className="btn btn-primary">Get Status</button></td>
         </tr>
           )}
         </tbody>
@@ -102,20 +106,28 @@ const ProfileHome = () => {
           else{ console.log(deployerContract, 'deployer idk inside application')
           const currentIdx = await deployerContract.methods.insuranceCounter().call()
           console.log(currentIdx, 'currentIdx')
+          let getAllInsurances = await axios.get(insUrl)
+          getAllInsurances = getAllInsurances.data
+          console.log(getAllInsurances)
           if (currentUser.user.type==='individual') {
             const FetchedInsurances = []
-            for (let i = 0; i < currentIdx; i++) {
-              const awaitedInsurance = await deployerContract.methods.FetchInsuranceByIndex(i).call({from: currentUser.user.address})           
-              console.log(awaitedInsurance, i , ' ith here', awaitedInsurance[0], currentUser.user.aadhaarCardNumber)
-              if (Number(awaitedInsurance.aadhaarCardNumber)===Number(currentUser.user.aadhaarCardNumber)) {
-                console.log('match found', currentUser.user.aadhaarCardNumber)
-                awaitedInsurance.ID = i
-                // console.log(awaitedInsurance, 'here and now', i)
-                // setInsurances([...insurances, awaitedInsurance])
-                FetchedInsurances.push(awaitedInsurance)
-              }
+            // for (let i = 0; i < currentIdx; i++) {
+            //   const awaitedInsurance = await deployerContract.methods.FetchInsuranceByIndex(i).call({from: currentUser.user.address})           
+            //   console.log(awaitedInsurance, i , ' ith here', awaitedInsurance[0], currentUser.user.aadhaarCardNumber)
+            //   if (Number(awaitedInsurance.aadhaarCardNumber)===Number(currentUser.user.aadhaarCardNumber)) {
+            //     console.log('match found', currentUser.user.aadhaarCardNumber)
+            //     awaitedInsurance.ID = i
+            //     // console.log(awaitedInsurance, 'here and now', i)
+            //     // setInsurances([...insurances, awaitedInsurance])
+            //     FetchedInsurances.push(awaitedInsurance)
+            //   }
               // console.log(insurances, 'after fetch')
-          }
+              for (let j = 0; j < getAllInsurances.length; j++) {
+                if (Number(currentUser.user.aadhaarCardNumber) === Number(getAllInsurances[j].aadhaarNumber)) {
+                  FetchedInsurances.push(getAllInsurances[j])
+                }
+              }
+          // }
           setInsurances(FetchedInsurances)
           console.log(FetchedInsurances, 'after fetch', insurances)
           } else {
