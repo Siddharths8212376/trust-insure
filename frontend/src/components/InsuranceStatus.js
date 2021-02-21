@@ -4,15 +4,16 @@ import { useSelector } from 'react-redux'
 import Web3 from 'web3'
 import axios from 'axios'
 import BlockSecureDeployer from '../abi/BlockSecureDeployer.json'
+const insUrl = 'http://localhost:3001/api/insurances'
+
 const DisplayInsuranceStatus = ({ currentUser, insurance }) => {
     if (insurance===null) return (
         <div>Loading Insurances... </div>
     )
     return (
         <div>
-            Name: {currentUser.user.username} <br/>
-            Email: {currentUser.user.email} <br/>
-            Aadhaar Number: {insurance.aadhaarCardNumber} <br/>
+            Username: {insurance.name} <br/>
+            Aadhaar Number: {insurance.aadhaarNumber} <br/>
             Insurance Name: {insurance.policyName} <br/>
             Insurance Provider: {insurance.insurerName} <br/>
             Sum Assured: {insurance.sumAssured} <br/>
@@ -42,8 +43,18 @@ const InsuranceStatus = () => {
           else{ 
               // fetch the current contract with index id
               console.log(deployedContract, 'heres the deployed contract')
-              const currentInsurance = await deployedContract.methods.FetchInsuranceByIndex(Number(id)-1).call()
-              console.log(currentInsurance, "found current Insurance here")
+            //   const currentInsurance = await deployedContract.methods.FetchInsuranceByIndex(Number(id)-1).call()
+            //   console.log(currentInsurance, "found current Insurance here")
+            let getAllInsurances = await axios.get(insUrl)
+            getAllInsurances = getAllInsurances.data
+            console.log(getAllInsurances, 'all insurances!!')
+            let currentInsurance = [];
+            for (let j = 0; j < getAllInsurances.length; j++) {
+                console.log(id, 'and', getAllInsurances[j].ID)
+                if (Number(id) === Number(getAllInsurances[j].ID)) {
+                    currentInsurance  = getAllInsurances[j]
+                }
+        }
               setInsurance(currentInsurance)
         }
       }

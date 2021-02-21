@@ -47,8 +47,9 @@ const CreateInsuranceButton = () => (
   // route to a page where in I can add an insurance
   <a href="/create-insurance" role="button" className="btn btn-primary">Add Insurance</a>
 )
-const displayInsureeDetails = (insurances) => (
+const displayHospitalInsureeDetails = (insurances) => (
     <div>
+      <p>Hospital Details Here!</p>
         <table class="table" style={{width: "100%", overflowX:"scroll", display:"block"}}>
   <thead>
     <tr>
@@ -56,8 +57,7 @@ const displayInsureeDetails = (insurances) => (
       <th scope="col">Username</th>
       <th scope="col">Aadhaar Card Number</th>
       <th scope="col">EthereumAddress</th>
-      <th scope="col">Email</th>
-      <th scope="col">Type of Insurance</th>
+      <th scope="col">Name of Insurance</th>
       <th scope="col">Premium</th>
       <th scope="col">Current State</th>
       <th scope="col">Details</th>
@@ -67,20 +67,86 @@ const displayInsureeDetails = (insurances) => (
       {insurances.map((insuree) => 
       <tr>
         <th scope="row">{insuree.ID}</th>
-        <td>{insuree.username}</td>
-        <td>{insuree[0]}</td>
-        <td>{insuree.address}</td>
-        <td>{insuree.email}</td>
-        <td>{insuree[7]}</td>
-        <td>{insuree[8]}</td>
-        <td>{insuree[3]}</td>
-        <td><button className="btn btn-primary">Get Status</button></td>
+        <td>{insuree.name}</td>
+        <td>{insuree.aadhaarNumber}</td>
+        <td>{insuree.userAddress}</td>
+        <td>{insuree.policyName}</td>
+        <td>{insuree.sumAssured}</td>
+        <td>{insuree.state}</td>
+        <td><a href={`/insurance-status/${insuree.ID}`} role="button" className="btn btn-primary">Get Info</a></td>
+        </tr>
+          )}
+        </tbody>
+        </table>
+    </div>
+)
+const displayBankInsureeDetails = (insurances) => (
+    <div>
+      <p>Bank Details Here!</p>
+        <table class="table" style={{width: "100%", overflowX:"scroll", display:"block"}}>
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Username</th>
+      <th scope="col">Aadhaar Card Number</th>
+      <th scope="col">EthereumAddress</th>
+      <th scope="col">Name of Insurance</th>
+      <th scope="col">Premium</th>
+      <th scope="col">Current State</th>
+      <th scope="col">Details</th>
+    </tr>
+  </thead>
+  <tbody>
+      {insurances.map((insuree) => 
+      <tr>
+        <th scope="row">{insuree.ID}</th>
+        <td>{insuree.name}</td>
+        <td>{insuree.aadhaarNumber}</td>
+        <td>{insuree.userAddress}</td>
+        <td>{insuree.policyName}</td>
+        <td>{insuree.sumAssured}</td>
+        <td>{insuree.state}</td>
+        <td><a href={`/insurance-status/${insuree.ID}`} role="button" className="btn btn-primary">Get Info</a></td>
+        </tr>
+          )}
+        </tbody>
+        </table>
+    </div>
+)
+const displayInsureeDetails = (insurances) => (
+    <div>
+      <p>Insuree Details Here!</p>
+        <table class="table" style={{width: "100%", overflowX:"scroll", display:"block"}}>
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Username</th>
+      <th scope="col">Aadhaar Card Number</th>
+      <th scope="col">EthereumAddress</th>
+      <th scope="col">Name of Insurance</th>
+      <th scope="col">Premium</th>
+      <th scope="col">Current State</th>
+      <th scope="col">Details</th>
+    </tr>
+  </thead>
+  <tbody>
+      {insurances.map((insuree) => 
+      <tr>
+        <th scope="row">{insuree.ID}</th>
+        <td>{insuree.name}</td>
+        <td>{insuree.aadhaarNumber}</td>
+        <td>{insuree.userAddress}</td>
+        <td>{insuree.policyName}</td>
+        <td>{insuree.sumAssured}</td>
+        <td>{insuree.state}</td>
+        <td><a href={`/insurance-status/${insuree.ID}`} role="button" className="btn btn-primary">Get Info</a></td>
         </tr>
           )}
         </tbody>
         </table>
         <CreateInsuranceButton />
     </div>
+
 )
 const ProfileHome = () => {
     const { user: currentUser } = useSelector((state) => state.authReducer)
@@ -111,50 +177,63 @@ const ProfileHome = () => {
           console.log(getAllInsurances)
           if (currentUser.user.type==='individual') {
             const FetchedInsurances = []
-            // for (let i = 0; i < currentIdx; i++) {
-            //   const awaitedInsurance = await deployerContract.methods.FetchInsuranceByIndex(i).call({from: currentUser.user.address})           
-            //   console.log(awaitedInsurance, i , ' ith here', awaitedInsurance[0], currentUser.user.aadhaarCardNumber)
-            //   if (Number(awaitedInsurance.aadhaarCardNumber)===Number(currentUser.user.aadhaarCardNumber)) {
-            //     console.log('match found', currentUser.user.aadhaarCardNumber)
-            //     awaitedInsurance.ID = i
-            //     // console.log(awaitedInsurance, 'here and now', i)
-            //     // setInsurances([...insurances, awaitedInsurance])
-            //     FetchedInsurances.push(awaitedInsurance)
-            //   }
-              // console.log(insurances, 'after fetch')
               for (let j = 0; j < getAllInsurances.length; j++) {
                 if (Number(currentUser.user.aadhaarCardNumber) === Number(getAllInsurances[j].aadhaarNumber)) {
                   FetchedInsurances.push(getAllInsurances[j])
                 }
               }
-          // }
           setInsurances(FetchedInsurances)
           console.log(FetchedInsurances, 'after fetch', insurances)
-          } else {
+          } else if (currentUser.user.type==='Insurer') {
             const FetchedInsurances = []
-            for (let i = 0; i < currentIdx; i++) {
-              const awaitedInsurance = await deployerContract.methods.FetchInsuranceByIndex(i).call({from: currentUser.user.address})           
-              console.log(awaitedInsurance, i, currentUser.user.address,  ' ith here')
-              if (awaitedInsurance[5] === currentUser.user.address) {
-                console.log('found match!!!')
-                awaitedInsurance.ID = i
-                let users = await axios.get(userUrl)
-                // console.log(users, 'users here')
-                users = users.data
-                for (let uIdx = 0; uIdx < users.length; uIdx++) {
-                  // console.log(users[uIdx], 'ith user', users[uIdx].aadhaarCardNumber, 'adhar match', awaitedInsurance[0])
-                  if (Number(users[uIdx].aadhaarCardNumber) === Number(awaitedInsurance[0])){
-                    awaitedInsurance.username = users[uIdx].username
-                    awaitedInsurance.email = users[uIdx].email
-                    awaitedInsurance.address = users[uIdx].address
-                    // console.log('found the matching users')
-                  }
+            let getAllInsurances = await axios.get(insUrl)
+            getAllInsurances = getAllInsurances.data
+            console.log(getAllInsurances, 'all insurances!!')
+
+            for (let j = 0; j < getAllInsurances.length; j++) {
+                console.log(currentUser.user.address, 'and', getAllInsurances[j].insurerAddress)
+                if (String(currentUser.user.address) === String(getAllInsurances[j].insurerAddress)) {
+                  console.log('hey hey got it hey!')
+                  FetchedInsurances.push(getAllInsurances[j])
+                } else {
+                  console.log('nuff')
                 }
-                FetchedInsurances.push(awaitedInsurance)
-              }
-            }
+              } 
+
             setInsurances(FetchedInsurances)
-            // console.log(FetchedInsurances, 'fetched all insurances')
+            console.log(FetchedInsurances, 'fetched all insurances')
+          } else if (currentUser.user.type==='Bank') {
+            const FetchedInsurances = []
+            let getAllInsurances = await axios.get(insUrl)
+            getAllInsurances = getAllInsurances.data
+            console.log(getAllInsurances, 'all insurances!!')
+
+            for (let j = 0; j < getAllInsurances.length; j++) {
+                console.log(currentUser.user.address, 'and', getAllInsurances[j].bankUWAddress)
+                if (String(currentUser.user.address) === String(getAllInsurances[j].bankUWAddress)) {
+                  console.log('hey hey got bankuw hey!')
+                  FetchedInsurances.push(getAllInsurances[j])
+                } else {
+                  console.log('nuff')
+                }
+              } 
+            setInsurances(FetchedInsurances)
+          } else if (currentUser.user.type==='Hospital') {
+            const FetchedInsurances = []
+            let getAllInsurances = await axios.get(insUrl)
+            getAllInsurances = getAllInsurances.data
+            console.log(getAllInsurances, 'all insurances!!')
+
+            for (let j = 0; j < getAllInsurances.length; j++) {
+                console.log(currentUser.user.address, 'and', getAllInsurances[j].medUWAddress)
+                if (String(currentUser.user.address) === String(getAllInsurances[j].medUWAddress)) {
+                  console.log('hey hey got meduw hey!')
+                  FetchedInsurances.push(getAllInsurances[j])
+                } else {
+                  console.log('nuff')
+                }
+              } 
+              setInsurances(FetchedInsurances)
           }
         }
       }
@@ -171,11 +250,14 @@ const ProfileHome = () => {
     // console.log(insurances, 'render ')
     return (
         <div>
-            <p>Your address: {currentUser.user.address}  Your email: {currentUser.user.email}  Your Aadhaar: {currentUser.user.aadhaarCardNumber}</p>
+            {currentUser.user.type==='individual' ? <p>Your address: {currentUser.user.address}  Your email: {currentUser.user.email}  Your Aadhaar: {currentUser.user.aadhaarCardNumber}</p>
+            : <div>Your email: {currentUser.user.email} Your address: {currentUser.user.address} </div>}
             {/* Add correct routing to these parts, from the insurance schema */}
             <div>{currentUser.user.type==='individual'
             ? displayInsuranceDetails(insurances) 
-            : displayInsureeDetails(insurances) }
+            : (currentUser.user.type==='Insurer'? displayInsureeDetails(insurances)
+            : (currentUser.user.type==='Bank' ? displayBankInsureeDetails(insurances)
+          : displayHospitalInsureeDetails(insurances))) }
             </div>
         </div>
     )

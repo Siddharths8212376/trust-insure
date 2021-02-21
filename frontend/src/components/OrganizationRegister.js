@@ -19,7 +19,7 @@ export const Organization = () => {
     const [successMessage, setSuccessMessage] = useState('')
     const [address, setAddress] = useState('')
     const [firmType, setFirmType] = useState('')
-    const type = 'organization'
+    const type = firmType
     const { message } = useSelector(state => state.messageReducer)
     const dispatch = useDispatch()
   
