@@ -54,7 +54,27 @@ app.post('/api/insurances', jsonParser, async (request, response) => {
         sumAssured: body.sumAssured,
         policyTerm: body.policyTerm,
         paymentTerm: body.paymentTerm,
-        premium: body.premium
+        premium: body.premium,
+        customerVerification: false,
+        active: true,
+        financialHealthPoints: -1,
+        bankUWResult: false,
+        activeStatus: false,
+        healthScore: -1,
+        physicalVerification: false,
+        medicalUWResult: false,
+        premiumReceived: false,
+        policyNumber: -1,
+        issuanceDate: -1,
+        maturityDate: -1,
+        premiumFinal: -1,
+        sumAssuredFinal: -1,
+        policyIssued: false,
+        claimReason: 'Nan',
+        claimReasonVerification: false,
+        claimReasonRemark: 'Nan',
+        claimResponder: 'Nan'
+
     })
     const savedInsurance = await insurance.save()
     console.log(savedInsurance)
@@ -63,6 +83,19 @@ app.post('/api/insurances', jsonParser, async (request, response) => {
 app.get('/api/insurances', async (request, response) => {
     const insurances = await Insurance.find({})
     response.json(insurances)
+})
+app.get('/api/insurances/:id', async (request, response) => {
+    console.log(request.params)
+    const insurance = await Insurance.find({"ID": request.params.id})
+    response.json(insurance)
+})
+app.put('/api/insurances/:id', jsonParser, async (request, response) => {
+    // console.log(request.body, 'boy here')
+    // const insurance = await Insurance.find({"ID": request.params.id})
+    const body = request.body
+    console.log(body, 'body of the request')
+    const updatedInsurance = await Insurance.findOneAndUpdate({"ID": request.params.id}, body)
+    response.json(updatedInsurance)
 })
 app.post('/api/signup', jsonParser, async (request, response) => {
     console.log(request.body, 'request to register here')

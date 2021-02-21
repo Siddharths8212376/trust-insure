@@ -97,6 +97,63 @@ const insuranceSchema = new mongoose.Schema({
     },
     premium: {
         type: Boolean
+    },
+    customerVerification: {
+        type: Boolean
+    }, 
+    active: {
+        type: Boolean
+    }, 
+    financialHealthPoints: {
+        type: Number
+    }, 
+    bankUWResult: {
+        type: Boolean
+    },
+    activeStatus: {
+        type: Boolean
+    }, 
+    healthScore: {
+        type: Number
+    }, 
+    physicalVerification: {
+        type: Boolean
+    }, 
+    medicalUWResult: {
+        type: Boolean
+    }, 
+    premiumReceived: {
+        type: Boolean
+    }, 
+    policyNumber: {
+        type: Number
+    }, 
+    issuanceDate: {
+        type: Number
+    }, 
+    maturityDate: {
+        type: Number
+    },
+    premiumFinal: {
+        type: Number
+    },
+    sumAssuredFinal: {
+        type: Number
+    },
+    policyIssued: {
+        type: Boolean
+    }, 
+    claimReason: {
+        type: String
+    }, 
+    claimReasonVerification: {
+        type: Boolean
+    }, 
+    claimReasonRemark: {
+        type: String
+    },
+    claimResponder: {
+        type: String
     }
 })
 

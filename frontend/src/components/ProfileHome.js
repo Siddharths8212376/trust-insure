@@ -82,7 +82,7 @@ const displayHospitalInsureeDetails = (insurances) => (
 )
 const displayBankInsureeDetails = (insurances) => (
     <div>
-      <p>Bank Details Here!</p>
+      <p>Bank Details Here! </p>
         <table class="table" style={{width: "100%", overflowX:"scroll", display:"block"}}>
   <thead>
     <tr>
@@ -141,7 +141,8 @@ const displayInsureeDetails = (insurances) => (
         <td>{insuree.state}</td>
         <td><a href={`/insurance-status/${insuree.ID}`} role="button" className="btn btn-primary">Get Info</a></td>
         </tr>
-          )}
+          
+        )}
         </tbody>
         </table>
         <CreateInsuranceButton />
@@ -192,7 +193,7 @@ const ProfileHome = () => {
 
             for (let j = 0; j < getAllInsurances.length; j++) {
                 console.log(currentUser.user.address, 'and', getAllInsurances[j].insurerAddress)
-                if (String(currentUser.user.address) === String(getAllInsurances[j].insurerAddress)) {
+                if (String(currentUser.user.address) === String(getAllInsurances[j].insurerAddress) && getAllInsurances[j].state>=1) {
                   console.log('hey hey got it hey!')
                   FetchedInsurances.push(getAllInsurances[j])
                 } else {
@@ -210,7 +211,7 @@ const ProfileHome = () => {
 
             for (let j = 0; j < getAllInsurances.length; j++) {
                 console.log(currentUser.user.address, 'and', getAllInsurances[j].bankUWAddress)
-                if (String(currentUser.user.address) === String(getAllInsurances[j].bankUWAddress)) {
+                if (String(currentUser.user.address) === String(getAllInsurances[j].bankUWAddress) && Number(getAllInsurances[j].state)>=2) {
                   console.log('hey hey got bankuw hey!')
                   FetchedInsurances.push(getAllInsurances[j])
                 } else {
@@ -218,6 +219,7 @@ const ProfileHome = () => {
                 }
               } 
             setInsurances(FetchedInsurances)
+
           } else if (currentUser.user.type==='Hospital') {
             const FetchedInsurances = []
             let getAllInsurances = await axios.get(insUrl)
@@ -226,7 +228,7 @@ const ProfileHome = () => {
 
             for (let j = 0; j < getAllInsurances.length; j++) {
                 console.log(currentUser.user.address, 'and', getAllInsurances[j].medUWAddress)
-                if (String(currentUser.user.address) === String(getAllInsurances[j].medUWAddress)) {
+                if (String(currentUser.user.address) === String(getAllInsurances[j].medUWAddress) && getAllInsurances[j].state>=4) {
                   console.log('hey hey got meduw hey!')
                   FetchedInsurances.push(getAllInsurances[j])
                 } else {
@@ -247,7 +249,7 @@ const ProfileHome = () => {
     } else {
         console.log(currentUser.user.insurances)
     } 
-    // console.log(insurances, 'render ')
+    console.log(insurances, 'render whatever')
     return (
         <div>
             {currentUser.user.type==='individual' ? <p>Your address: {currentUser.user.address}  Your email: {currentUser.user.email}  Your Aadhaar: {currentUser.user.aadhaarCardNumber}</p>

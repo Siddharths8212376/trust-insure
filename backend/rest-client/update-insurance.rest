@@ -1,0 +1,6 @@
+PUT http://localhost:3001/api/insurances/16 
+Content-Type: application/json
+
+{
+    "content": "siddharth"
+}
