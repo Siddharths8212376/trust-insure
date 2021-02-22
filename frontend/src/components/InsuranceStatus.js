@@ -150,6 +150,206 @@ const RequestMedicalUnderwriting = ({ insurance }) => {
     )
 }
 
+const InvokeClaim = ({ insurance }) => {
+    const [claimReason, setClaimReason] = useState('') 
+    const [claimResponder, setClaimResponder] = useState('')
+    const handleClaimReason = (e) => {
+        e.preventDefault()
+        setClaimReason(e.target.value)
+    }
+    const handleClaimResponder = (e) => {
+        e.preventDefault()
+        setClaimResponder(e.target.value) 
+    }
+    
+    const handleSubmitInvokeClaim = async (e) => {
+        e.preventDefault()
+        // console.log(customerVerificationDone, active, financialHealthPoints, bankUWResult)
+        const cr = claimReason
+        const cres = claimResponder
+        console.log(cr, cres)
+ 
+        // update db
+        insurance.state = 8;
+        insurance.claimReason=cr;
+        insurance.claimResponder=cres;
+
+        // fetch the current insurance from the db, and update it
+        await axios.put(`http://localhost:3001/api/insurances/${insurance.ID}`, insurance)
+
+    }
+    return (
+        <div>
+            <form>
+
+            <div className="form-group">
+                <label for="claimReason"><bold>Claim Reason</bold></label>
+                <input type="text" className="form-control" id="InputCR" value={claimReason} placeholder="Enter claim reason" onChange={handleClaimReason}/>
+            </div>
+            <div className="form-group">
+                <label for="active"><bold>Claim Responder</bold></label>
+                <input type="text" className="form-control" id="InputCRES" value={claimResponder} placeholder="Enter claim responder" onChange={handleClaimResponder}/>
+            </div>
+    <button type="submit" class="btn btn-primary" onClick={handleSubmitInvokeClaim}>Submit</button>
+            </form>
+        </div>
+    )    
+}
+
+const ClaimVerificationFromHospital = ({ insurance }) => {
+    const handleClaimVerificationFromHospital = async (e) => {
+        e.preventDefault()
+        const web3 = new Web3(Web3.givenProvider || "http://localhost:7545");
+        web3.eth.getAccounts().then(console.log);
+        if (web3) {
+            const accounts = await web3.eth.getAccounts()
+            const networkId = await web3.eth.net.getId()
+            const networkData = BlockSecureDeployer.networks[networkId]
+            if (networkData) {
+                const deployedContract = new web3.eth.Contract(BlockSecureDeployer.abi, networkData.address)
+                console.log(deployedContract, 'to change state', accounts[0], insurance.ID, 'also')
+                const cr = insurance.claimReason
+                const cres = insurance.claimResponder
+
+                // confirm details to be called.
+                await deployedContract.methods.InvokeClaim(Number(insurance.ID)-1, cr, cres).send({ from: accounts[0] })
+                // update db
+                insurance.state = 9;
+                // fetch the current insurance from the db, and update it
+                await axios.put(`http://localhost:3001/api/insurances/${insurance.ID}`, insurance)
+            }
+        }
+
+    }
+    return (
+        <div>
+            <div>
+               Claim Reason:  {insurance.claimReason} <br/>
+               Claim Responder: {insurance.claimResponder} <br/>
+            </div>
+            <button type="submit" class="btn btn-primary" onClick={handleClaimVerificationFromHospital}>Claim Verification from Hospital</button>
+        </div>
+    )
+}
+
+const SubmitClaimDetails = ({ insurance }) => {
+    const [claimReasonVerification, setClaimReasonVerification] = useState('')
+    const [claimReasonRemark, setClaimReasonRemark] = useState('')
+    const handleClaimReasonVerification = (e) => {
+        e.preventDefault()
+        setClaimReasonVerification(e.target.value)
+    }
+    const handleClaimReasonRemark = (e) => {
+        e.preventDefault()
+        setClaimReasonRemark(e.target.value) 
+    }
+    
+    const handleSubmitClaimDetails = async (e) => {
+        e.preventDefault()
+        // console.log(customerVerificationDone, active, financialHealthPoints, bankUWResult)
+        const crv = claimReasonVerification==='Yes'?true:false
+        const crem = claimReasonRemark
+        console.log(crv, crem)
+
+        const web3 = new Web3(Web3.givenProvider || "http://localhost:7545");
+        web3.eth.getAccounts().then(console.log);
+        if (web3) {
+            const accounts = await web3.eth.getAccounts()
+            const networkId = await web3.eth.net.getId()
+            const networkData = BlockSecureDeployer.networks[networkId]
+            if (networkData) {
+                const deployedContract = new web3.eth.Contract(BlockSecureDeployer.abi, networkData.address)
+                console.log(deployedContract, 'to change state', accounts[0], insurance.ID, 'also')
+                
+                // confirm details to be called.
+                await deployedContract.methods.SubmitClaimDetails(Number(insurance.ID)-1, crv, crem).send({ from: accounts[0] })
+                // update db
+                insurance.state = 10;
+                insurance.claimReasonVerification=crv;
+                insurance.claimReasonRemark=crem;
+                // fetch the current insurance from the db, and update it
+                await axios.put(`http://localhost:3001/api/insurances/${insurance.ID}`, insurance)
+            }
+        }
+
+    }
+    return (
+        <div>
+            <form>
+
+            <div className="form-group">
+                <label for="claimReasonV"><bold>Claim Reason Verified? (Yes/No)</bold></label>
+                <input type="text" className="form-control" id="InputCRV" value={claimReasonVerification} placeholder="Yes/No" onChange={handleClaimReasonVerification}/>
+            </div>
+            <div className="form-group">
+                <label for="active"><bold>Remarks for claim reason</bold></label>
+                <input type="text" className="form-control" id="InputCREM" value={claimReasonRemark} placeholder="claim remarks" onChange={handleClaimReasonRemark}/>
+            </div>
+    <button type="submit" class="btn btn-primary" onClick={handleSubmitClaimDetails}>Submit</button>
+            </form>
+        </div>
+    )    
+}
+
+const AcceptOrRejectClaim = ({ insurance }) => {
+
+    const handleSubmitAccepted = async (e) => {
+        e.preventDefault()
+
+
+        const web3 = new Web3(Web3.givenProvider || "http://localhost:7545");
+        web3.eth.getAccounts().then(console.log);
+        if (web3) {
+            const accounts = await web3.eth.getAccounts()
+            const networkId = await web3.eth.net.getId()
+            const networkData = BlockSecureDeployer.networks[networkId]
+            if (networkData) {
+                const deployedContract = new web3.eth.Contract(BlockSecureDeployer.abi, networkData.address)
+                console.log(deployedContract, 'to change state', accounts[0], insurance.ID, 'also')
+                
+                // confirm details to be called.
+                await deployedContract.methods.ClaimRequestAccepted(Number(insurance.ID)-1).send({ from: accounts[0] })
+                // update db
+                insurance.state = 11;
+                // fetch the current insurance from the db, and update it
+                await axios.put(`http://localhost:3001/api/insurances/${insurance.ID}`, insurance)
+            }
+        }
+
+    }
+
+    const handleSubmitRejected = async (e) => {
+        e.preventDefault()
+  
+        const web3 = new Web3(Web3.givenProvider || "http://localhost:7545");
+        web3.eth.getAccounts().then(console.log);
+        if (web3) {
+            const accounts = await web3.eth.getAccounts()
+            const networkId = await web3.eth.net.getId()
+            const networkData = BlockSecureDeployer.networks[networkId]
+            if (networkData) {
+                const deployedContract = new web3.eth.Contract(BlockSecureDeployer.abi, networkData.address)
+                console.log(deployedContract, 'to change state', accounts[0], insurance.ID, 'also')
+                
+                // confirm details to be called.
+                await deployedContract.methods.ClaimRequestRejected(Number(insurance.ID)-1).send({ from: accounts[0] })
+                // update db
+                insurance.state = -2;
+                // fetch the current insurance from the db, and update it
+                await axios.put(`http://localhost:3001/api/insurances/${insurance.ID}`, insurance)
+            }
+        }
+
+    }
+
+    return (
+        <div>
+            <button type="submit" class="btn btn-success" onClick={handleSubmitAccepted}>Accept</button>
+            <button type="submit" class="btn btn-danger" onClick={handleSubmitRejected}>Reject</button>
+        </div>
+    )
+}
+
 const UpdateFinancialHealth = ({ insurance }) => {
     const [customerVerificationDone, setCustomerVerificationDone] = useState('')
     const [active, setActive] = useState('')
@@ -308,6 +508,7 @@ const UpdateMedicalHealth = ({ insurance }) => {
         </div>
     )
 }
+
 const RecalculatePolicy = ({ insurance }) => {
     const [premiumReceived, setPremiumReceived] = useState('')
     const [policyNumber, setPolicyNumber] = useState('')
@@ -436,10 +637,16 @@ const DisplayInsuranceStatus = ({ currentUser, insurance }) => {
             <div>
             <InsuranceDetails insurance={insurance}/> 
             {insurance.state===0&&<ConfirmDetails insurance={insurance}/>}
+            {insurance.state===1&&<div>You have confirmed your details. The application is begin processed. </div>}
             {insurance.state===5&&<div>The policy is being recalculated.</div>}
             {insurance.state===-1&&<div>Your Application was rejected.</div>}
             {insurance.state===6&&<ConfirmPolicyFinal insurance={insurance}/>}
-            {insurance.state===7&&<div>Your have confirmed the policy. You are eligible for invoking claims </div>}
+            {insurance.state===7&&<div>Your have confirmed the policy. You are eligible for invoking claims <InvokeClaim insurance={insurance}/></div>}
+            {(insurance.state===8||insurance.state===9)&&<div>The claim has been invoked. Waiting for claim verification from hospital. </div>}
+            {insurance.state===10&&<div>The claim has been verified by the hospital. Waiting for final response from insurance provider</div>}
+            {insurance.state===11&&<div>The claim has been accepted! </div>}
+            {insurance.state===-2&&<div>The claim was rejected. </div>}
+            
             </div>
         )
     } else if (currentUser.user.type==='Insurer' && insurance.state>=1) {
@@ -452,7 +659,12 @@ const DisplayInsuranceStatus = ({ currentUser, insurance }) => {
                 {insurance.state===4&&<div>Requested Medical Underwriting</div>}
                 {insurance.state===5&&<RecalculatePolicy insurance={insurance}/>}
                 {insurance.state===6&&<div>The insurance application was approved. Waiting for client confirmation.</div>}
-                {insurance.state===7&&<div>The client has accepted the policy </div>}
+                {insurance.state===7&&<div>The client has accepted the policy.</div>}
+                {insurance.state===8&&<div>The client has invoked the claim. <ClaimVerificationFromHospital insurance={insurance}/> </div>}
+                {insurance.state===9&&<div>The claim has been requested for verification from the hospital </div>}
+                {insurance.state===10&&<div>The claim has been verified. <AcceptOrRejectClaim insurance={insurance}/></div>}
+                {insurance.state===11&&<div>The claim has been accepted! </div>}
+                {insurance.state===-2&&<div>The claim was rejected. </div>}
                 {insurance.state===-1&&<div>The insurance application was rejected</div>}
             </div>
         )
@@ -467,7 +679,8 @@ const DisplayInsuranceStatus = ({ currentUser, insurance }) => {
                 {insurance.state===5&&<div>Medical Underwriting Done. Health Score Updated.</div>}
                 {insurance.state===6&&<div>The insurance application was approved. Waiting for client confirmation </div>}
                 {insurance.state===7&&<div>The client has accepted the policy </div>}
-                {insurance.state===-1&&<div>The insurance application was rejected</div>}
+                {insurance.state===-1&&<div>The insurance application was rejected.</div>}
+
             </div>
         )
     } else if (currentUser.user.type==='Hospital') {
@@ -480,6 +693,8 @@ const DisplayInsuranceStatus = ({ currentUser, insurance }) => {
                 {insurance.state===6&&<div>The insurance application was approved. Waiting for client confirmation </div>}
                 {insurance.state===7&&<div>The client has accepted the policy </div>}
                 {insurance.state===-1&&<div>The insurance application was rejected</div>}
+                {insurance.state===9&&<div>The claim was invoked. Please verify claim details and submit. <SubmitClaimDetails insurance={insurance}/> </div>}
+                {insurance.state===10&&<div>The claim was verified.</div>}
             </div>
         )
     }
