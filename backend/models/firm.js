@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 const uniqueValidator = require('mongoose-unique-validator')
-const url = 'mongodb+srv://siddharth-s:3012@cluster0.cbsfq.mongodb.net/block-insure-updated?retryWrites=true&w=majority'
+const url = 'mongodb+srv://albertaug:albert333augustine@cluster0.bv63t.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
 mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true })
 const firmSchema = new mongoose.Schema({
     email: {
