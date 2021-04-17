@@ -17,8 +17,12 @@ import { logout } from './actions/authActionCreater'
 import { history } from './helpers/history'
 
 import BlockSecureDeployer from './abi/BlockSecureDeployer.json'
+import background from "./components/bgm.PNG";
+import "./css/App.css";
+
 
 function App() {
+  
   const [web3, setWeb3] = useState({})
   const [deployerContract, setDeployerContract] = useState(null)
   const [insuranceCount, setInsuranceCount] = useState(-1)
@@ -61,25 +65,29 @@ function App() {
     dispatch(logout())
   }
   return (
+    
+
     <Router history={history}>
-      <div>
-        <nav className="navbar navbar-expand navbar-dark bg-dark">
+      <div classname='bg' style={{ backgroundImage: `url(${background})`}}>
+      
+    
+      
+        <nav className="navbar navbar-expand navbar-dark">
           <Link to={"/"} className="navbar-brand">
             Insurances
           </Link>
-          
           {currentUser ? (
             <div className="navbar-nav ml-auto">
-            <li className="nav-item">
-              <Link to={"/profilehome"} className="nav-link">
-                User
-              </Link>
-            </li>
-            <li className="nav-item">
-              <a href="/login" className="nav-link" onClick={logOut}>
-              Log Out
-              </a>
-            </li>
+              <li className="nav-item">
+                <Link to={"/profilehome"} className="nav-link">
+                  User
+                </Link>
+              </li>
+              <li className="nav-item">
+                <a href="/login" className="nav-link" onClick={logOut}>
+                  Log Out
+                </a>
+              </li>
             </div>
           )
           : (
@@ -94,11 +102,10 @@ function App() {
                   Register
                 </Link>
               </li>
-              
             </div>
           )}
         </nav>
-      <div className="container mt-5" style={{width:"100%"}}>
+      <div className="container mt-5" style={{height:"100vh"}}>
         <Switch>
           <Route exact path={["/", "/login"]} component={Login} />
           <Route exact path="/register" component={Register} />
@@ -111,8 +118,9 @@ function App() {
         </Switch>
       </div>
       <button onClick={getInsuranceCount}>Get Count</button>
-      <div>Insurance Count : {insuranceCount} </div>
+      <div style={{color:'white'}}>Insurance Count : {insuranceCount} </div>
       </div>
+      
     </Router>
   )
 }

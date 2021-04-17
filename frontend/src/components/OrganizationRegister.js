@@ -71,13 +71,13 @@ export const Organization = () => {
       </div>
     )
       return (
-      <div className="col-md-12">
+      <div className="container login-container">
         <div className="card card-container">
           <Form onSubmit={handleRegister} ref={form} style={{padding:"20px"}}>
             {!successful && (
               <div>
                 <div className="form-group">
-                  <label htmlFor="username">Name of Org</label>
+                  <label htmlFor="username">Name of Organization</label>
                   <Input
                     type="text"
                     className="form-control"
@@ -88,7 +88,7 @@ export const Organization = () => {
                   />
                 </div>
                 <div className="form-group">
-                  <label htmlFor="type">Type of Org (Bank/Hospital/Insurer)</label>
+                  <label htmlFor="type">Type of Organization (Bank/Hospital/Insurer)</label>
                   <Input
                     type="text"
                     className="form-control"

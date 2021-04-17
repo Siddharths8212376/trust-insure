@@ -6,6 +6,8 @@ import CheckButton from 'react-validation/build/button'
 import { registerUser } from '../actions/authActionCreater'
 import { Redirect } from 'react-router-dom'
 import { required, validEmail, validAddress, validPassword, validOrgtype, validUsername } from '../helpers/validations'
+import "./Register.css";
+
 
 export const Individual = () => {
     const form = useRef()
@@ -77,7 +79,7 @@ export const Individual = () => {
       )
   
       return (
-      <div className="col-md-12">
+      <div className="container login-container">
       <div className="card card-container">
         <Form onSubmit={handleRegister} ref={form} style={{padding:"20px"}}>
           {!successful && (
