@@ -39,6 +39,9 @@ const ConfirmAllDetails = async (insurance) => {
         insurance.state = 1;
         // fetch the current insurance from the db, and update it
         await axios.put(`http://localhost:3001/api/insurances/${insurance.ID}`, insurance)
+            .then(() => {
+                        window.location.reload()
+                    })
         }
     }
 }
@@ -75,10 +78,16 @@ const ConfirmPolicyFinal = ({insurance}) => {
                 insurance.state = 7;
                 // fetch the current insurance from the db, and update it
                 await axios.put(`http://localhost:3001/api/insurances/${insurance.ID}`, insurance)
+                    .then(() => {
+                        window.location.reload()
+                    })
                 } else {
                    await deployedContract.methods.Reject(Number(insurance.ID)-1).send({ from: accounts[0] }) 
                    insurance.state = -1;
                    await axios.put(`http://localhost:3001/api/insurances/${insurance.ID}`, insurance)
+                            .then(() => {
+                        window.location.reload()
+                    })
                 }
             }
         }
@@ -115,6 +124,9 @@ const RequestBankUnderwritingEvent = async (insurance) => {
         insurance.state = 2;
         // fetch the current insurance from the db, and update it
         await axios.put(`http://localhost:3001/api/insurances/${insurance.ID}`, insurance)
+            .then(() => {
+                        window.location.reload()
+                    })
         }
     }
 }
@@ -131,6 +143,9 @@ const RequestMedicalUnderwritingEvent = async (insurance) => {
         
         // confirm details to be called.
         await deployedContract.methods.SendToBankUnderwriter(Number(insurance.ID)-1).send({ from: accounts[0] })
+            .then(() => {
+                        window.location.reload()
+                    })
         // update db
         insurance.state = 4;
         // fetch the current insurance from the db, and update it
@@ -176,6 +191,9 @@ const InvokeClaim = ({ insurance }) => {
 
         // fetch the current insurance from the db, and update it
         await axios.put(`http://localhost:3001/api/insurances/${insurance.ID}`, insurance)
+                    .then(() => {
+                        window.location.reload()
+                    })
 
     }
     return (
@@ -213,6 +231,9 @@ const ClaimVerificationFromHospital = ({ insurance }) => {
 
                 // confirm details to be called.
                 await deployedContract.methods.InvokeClaim(Number(insurance.ID)-1, cr, cres).send({ from: accounts[0] })
+                    .then(() => {
+                        window.location.reload()
+                    })
                 // update db
                 insurance.state = 9;
                 // fetch the current insurance from the db, and update it
@@ -263,6 +284,9 @@ const SubmitClaimDetails = ({ insurance }) => {
                 
                 // confirm details to be called.
                 await deployedContract.methods.SubmitClaimDetails(Number(insurance.ID)-1, crv, crem).send({ from: accounts[0] })
+                    .then(() => {
+                        window.location.reload()
+                    })
                 // update db
                 insurance.state = 10;
                 insurance.claimReasonVerification=crv;
@@ -309,6 +333,9 @@ const AcceptOrRejectClaim = ({ insurance }) => {
                 
                 // confirm details to be called.
                 await deployedContract.methods.ClaimRequestAccepted(Number(insurance.ID)-1).send({ from: accounts[0] })
+                    .then(() => {
+                        window.location.reload()
+                    })
                 // update db
                 insurance.state = 11;
                 // fetch the current insurance from the db, and update it
@@ -333,6 +360,9 @@ const AcceptOrRejectClaim = ({ insurance }) => {
                 
                 // confirm details to be called.
                 await deployedContract.methods.ClaimRequestRejected(Number(insurance.ID)-1).send({ from: accounts[0] })
+                    .then(() => {
+                        window.location.reload()
+                    })
                 // update db
                 insurance.state = -2;
                 // fetch the current insurance from the db, and update it
@@ -391,6 +421,9 @@ const UpdateFinancialHealth = ({ insurance }) => {
                 
                 // confirm details to be called.
                 await deployedContract.methods.UpdateFinancialHealth(Number(insurance.ID)-1, cv, act, fhp, buwr).send({ from: accounts[0] })
+                    .then(() => {
+                        window.location.reload()
+                    })
                 // update db
                 insurance.state = 3;
                 insurance.financialHealthPoints=fhp;
@@ -468,6 +501,9 @@ const UpdateMedicalHealth = ({ insurance }) => {
                 
                 // confirm details to be called.
                 await deployedContract.methods.UpdateMedicalHealth(Number(insurance.ID)-1, act, mhp, pv, muwr).send({ from: accounts[0] })
+                    .then(() => {
+                        window.location.reload()
+                    })
                 // update db
                 insurance.state = 5;
                 insurance.healthScore=mhp;
@@ -569,6 +605,9 @@ const RecalculatePolicy = ({ insurance }) => {
                 
                 // confirm details to be called.
                 await deployedContract.methods.RecalculatePolicy(Number(insurance.ID)-1, pr, pn, issd, matd, pf, saf, pi).send({ from: accounts[0] })
+                    .then(() => {
+                        window.location.reload()
+                    })
                 // update db
                 insurance.state = pi===true?6:-1;
                 insurance.premiumReceived=pr;
