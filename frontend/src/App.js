@@ -68,8 +68,8 @@ function App() {
     
 
     <Router history={history}>
-      <div>
-        <nav className="navbar navbar-expand navbar-dark bg-dark">
+      <div style={{backgroundColor:"#121212", display:"flex", flexFlow:"column"}}>
+        <nav className="navbar navbar-expand navbar-dark" style={{backgroundColor:"#181818"}}>
           <Link to={"/"} className="navbar-brand">
             Insurances
           </Link>
@@ -102,7 +102,7 @@ function App() {
             </div>
           )}
         </nav>
-      <div className="container mt-5" style={{height:"100vh"}}>
+      <div className="container mt-5" style={{minHeight:"100vh"}}>
         <Switch>
           <Route exact path={["/", "/login"]} component={Login} />
           <Route exact path="/register" component={Register} />
@@ -117,7 +117,7 @@ function App() {
       {/* <button onClick={getInsuranceCount}>Get Count</button>
       <div style={{color:'white'}}>Insurance Count : {insuranceCount} </div> */}
       </div>
-      
+
     </Router>
   )
 }
