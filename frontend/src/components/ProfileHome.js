@@ -11,9 +11,9 @@ const userUrl = 'http://localhost:3001/api/users'
 
 
 const displayInsuranceDetails = (insurances) => (
-    <div>
+    <div >
         <h4>Insurance Details </h4>
-       <table class="table" style={{width: "100%", overflowX:"auto", display:"block"}}>
+       <table class="table" style={{width: "100%", overflowX:"auto", display:"block", color:'white'}}>
   <thead>
     <tr>
       <th scope="col">ID</th>
@@ -50,7 +50,7 @@ const CreateInsuranceButton = () => (
 const displayHospitalInsureeDetails = (insurances) => (
     <div>
       <p>Hospital Details Here!</p>
-        <table class="table" style={{width: "100%", overflowX:"auto", display:"block"}}>
+        <table class="table" style={{width: "100%", overflowX:"auto", display:"block", color: "white"}}>
   <thead>
     <tr>
       <th scope="col">ID</th>
@@ -83,7 +83,7 @@ const displayHospitalInsureeDetails = (insurances) => (
 const displayBankInsureeDetails = (insurances) => (
     <div>
       <p>Bank Details Here! </p>
-        <table class="table" style={{width: "100%", overflowX:"auto",display:"block"}}>
+        <table class="table" style={{width: "100%", overflowX:"auto",display:"block", color: "white"}}>
   <thead>
     <tr>
       <th scope="col">ID</th>
@@ -116,7 +116,7 @@ const displayBankInsureeDetails = (insurances) => (
 const displayInsureeDetails = (insurances) => (
     <div>
       <p>Insuree Details Here!</p>
-        <table class="table" style={{width: "100%", overflowX:"auto", display:"block"}}>
+        <table class="table" style={{width: "100%", overflowX:"auto", display:"block", color: "white"}}>
   <thead>
     <tr>
       <th scope="col">ID</th>
@@ -251,7 +251,7 @@ const ProfileHome = () => {
     } 
     console.log(insurances, 'render whatever')
     return (
-        <div>
+        <div style={{color: 'white'}}>
             {currentUser.user.type==='individual' ? <p>Your address: {currentUser.user.address}  Your email: {currentUser.user.email}  Your Aadhaar: {currentUser.user.aadhaarCardNumber}</p>
             : <div>Your email: {currentUser.user.email} Your address: {currentUser.user.address} </div>}
             {/* Add correct routing to these parts, from the insurance schema */}

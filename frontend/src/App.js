@@ -64,12 +64,19 @@ function App() {
   const logOut = () => {
     dispatch(logout())
   }
+  let navColor = '#181818'
+  if (currentUser) {
+    if (currentUser.user.type==='individual') navColor='red'
+    else if (currentUser.user.type==='Insurer') navColor='orange'
+    else if (currentUser.user.type==='Bank') navColor='blue'
+    else navColor='green'
+  }
   return (
     
 
     <Router history={history}>
       <div style={{backgroundColor:"#121212", display:"flex", flexFlow:"column"}}>
-        <nav className="navbar navbar-expand navbar-dark" style={{backgroundColor:"#181818"}}>
+        <nav className="navbar navbar-expand navbar-dark" style={{backgroundColor:navColor}}>
           <Link to={"/"} className="navbar-brand">
             Insurances
           </Link>
