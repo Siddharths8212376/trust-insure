@@ -56,8 +56,20 @@ const Login = (props) => {
     }
     return (
       <div>
-        <div className="col-md-5 login-form-1">
-            <div className="card card-container" style={{padding:"20px"}}>
+        <div className="description card" style={{float: 'left', backgroundColor: "#282828", color: 'white', padding: '1%', width: "50%"}}>
+          <img className="card-img-top" style={{height:"150px", width:"150px"}} src="https://i.ibb.co/7v3gzrP/blockchain-insurance.jpg" alt="blockchain-insurance" border="0" />
+          <h3>We cover for you!</h3>
+          <p>Driven to provide insurance solutions to customers, 
+            HDFC ERGO General Insurance has secured over #1.3 Crore+ customers. 
+            Right from offering comprehensive car insurance to a wide range of health insurance plans, 
+            we at HDFC ERGO always take a Customer First Approach. Our plethora of offerings mainly include car insurance,
+             two wheeler insurance, home insurance, travel insurance, health insurance and other commercial products. 
+             Backed by a super strong customer support team and seamless service driven claims operation, 
+             we ensure 360 degree customer happiness.
+          </p>
+        </div>
+        <div className="col-md-5 login-form-1" style={{backgroundColor: "#404040", borderRadius: "1%", float: 'right'}}>
+            <div className="card card-container" style={{padding:"20px", backgroundColor: "#282828", color: 'white'}}>
               <Form onSubmit={handleLogin} ref={form} style={{padding:"20px"}}>
                 <div className="form-group">
                   <label htmlFor="email">Email</label>
@@ -103,6 +115,7 @@ const Login = (props) => {
               </Form>
             </div>
         </div>
+
         </div>
     )
 }

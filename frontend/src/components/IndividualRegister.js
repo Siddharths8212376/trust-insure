@@ -80,7 +80,7 @@ export const Individual = () => {
   
       return (
       <div className="container login-container">
-      <div className="card card-container">
+      <div className="card card-container" style={{backgroundColor: "#282828", color: "white", width: "30rem"}}>
         <Form onSubmit={handleRegister} ref={form} style={{padding:"20px"}}>
           {!successful && (
             <div>
