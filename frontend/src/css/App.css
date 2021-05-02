@@ -1,45 +1,5 @@
-.mainbg{
-    background: rgb(93,93,255);
-background: linear-gradient(90deg, rgba(93,93,255,1) 0%, rgba(0,212,255,1) 89%);
+.navbar .nav-item.active .nav-link.active,
+.navbar .nav-item:focus .nav-link:focus,
+.navbar .nav-item:hover .nav-link:hover {
+    color: #ffffff;
 }
-body, html {
-    height: 100%;
-    margin: 0;
-}
-.foot {
-    position:absolute;
-    bottom:0;
-    width:100%;
-    height:60px;   /* Height of the footer */
-    background:rgb(14, 65, 62);
-    opacity: 30;
- }
- 
- 
- .bg {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  left: 0;
-  top: 0;
-  background: rgba(51,51,51,0.7);
-  /* z-index: 10; */
-  /*  background-repeat: no-repeat; 
-  background-position: center center;
-  background-attachment: fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-  height: 100vh;*/
-  }
-  /*.bg .backgroundImage {
-    position: absolute; 
-    top: 0; 
-    left: 0; 
-    right: 0; 
-    bottom: 0; 
-    margin: auto; 
-    min-width: 50%;
-    min-height: 50%;
-  }*/

@@ -18,7 +18,7 @@ import { history } from './helpers/history'
 
 import BlockSecureDeployer from './abi/BlockSecureDeployer.json'
 import background from "./components/bgm.PNG";
-// import "./css/App.css";
+import "./css/App.css";
 
 
 function App() {
@@ -66,17 +66,17 @@ function App() {
   }
   let navColor = '#282828'
   if (currentUser) {
-    if (currentUser.user.type==='individual') navColor='red'
-    else if (currentUser.user.type==='Insurer') navColor='orange'
-    else if (currentUser.user.type==='Bank') navColor='blue'
-    else navColor='green'
+    if (currentUser.user.type==='individual') navColor='#900C3F'
+    else if (currentUser.user.type==='Insurer') navColor='#DB5B12'
+    else if (currentUser.user.type==='Bank') navColor='#2598F3'
+    else navColor='#378022'
   }
   return (
     
 
     <Router history={history}>
       <div style={{width: "100%", height: "100%"}}>
-      <div style={{backgroundColor:"#181818", display:"flex", flexFlow:"column",
+      <div style={{backgroundColor:"#222222", display:"flex", flexFlow:"column",
        backgroundImage: !currentUser ? "url(" + "https://i.ibb.co/sPBf7X9/insure-new.jpg" + ")" : "",
        backgroundRepeat: 'no-repeat',
        backgroundSize: "cover",

@@ -5,7 +5,7 @@ import './Register.css'
 
 const Button = ({ name, set, setIsInd}) => {
   return (
-    <button className="btn btn-primary" style={{marginBottom:"20px", marginLeft:"5%", marginRight:"0px", marginTop:"20px"}} onClick={()=>{setIsInd(set)}}>{name}</button>
+    <button className="btn btn-primary" style={{marginLeft:"5%", marginRight:"0px", marginTop:"20px"}} onClick={()=>{setIsInd(set)}}>{name}</button>
   )
 }
 const Register = () => {
@@ -24,7 +24,6 @@ const Register = () => {
               <Button name='An Individual' set={true} setIsInd={setIsInd} /> 
               <Button name='An Organization' set={false} setIsInd={setIsInd} /> 
               {isInd ? <Individual /> : <Organization />}
-          
         </div>
     )
 }
