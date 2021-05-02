@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux'
 import Web3 from 'web3'
 import axios from 'axios'
 import BlockSecureDeployer from '../abi/BlockSecureDeployer.json'
+import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 const insUrl = 'http://localhost:3001/api/insurances'
 const putUrl = 'http://localhost:3001/api/insurances'
 const InsuranceDetails = ({insurance}) => {
@@ -17,6 +18,37 @@ const InsuranceDetails = ({insurance}) => {
             Policy Term: {insurance.policyTerm} <br/>
             Payment Term: {insurance.paymentTerm} <br/>
             Current State: {insurance.state} <br/>           
+                <div style={{ width: 200, height: 200 }}>
+                {insurance.state <= 7 && <CircularProgressbar
+                    value={insurance.state/7*100}
+                    text={`${insurance.state}`}
+                    styles={buildStyles({
+                        rotation: 0,
+                        strokeLinecap: 'butt',
+                        textSize: '16px',
+                        pathTransitionDuration: 0.5,
+                        pathColor: `rgba(0, 0, 199, ${insurance.state / 11})`,
+                        textColor: '#f88',
+                        trailColor: 'red',
+                        backgroundColor: '#3e98c7',
+                    })}
+                />}
+                {insurance.state > 7 && <CircularProgressbar
+                    value={(insurance.state - 7)/3*100}
+                    text={`${insurance.state - 7}`}
+                    styles={buildStyles({
+                        rotation: 0,
+                        strokeLinecap: 'butt',
+                        textSize: '16px',
+                        pathTransitionDuration: 0.5,
+                        pathColor: `rgba(0, 0, 199, ${insurance.state / 11})`,
+                        textColor: 'orange',
+                        trailColor: 'orange',
+                        backgroundColor: '#3e98c7',
+                    })}
+                />}
+                
+                </div>    
         </div>
     )
 }
