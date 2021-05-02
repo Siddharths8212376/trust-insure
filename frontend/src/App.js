@@ -64,7 +64,7 @@ function App() {
   const logOut = () => {
     dispatch(logout())
   }
-  let navColor = '#181818'
+  let navColor = '#282828'
   if (currentUser) {
     if (currentUser.user.type==='individual') navColor='red'
     else if (currentUser.user.type==='Insurer') navColor='orange'
@@ -75,7 +75,13 @@ function App() {
     
 
     <Router history={history}>
-      <div style={{backgroundColor:"#121212", display:"flex", flexFlow:"column"}}>
+      <div style={{width: "100%", height: "100%"}}>
+      <div style={{backgroundColor:"#181818", display:"flex", flexFlow:"column",
+       backgroundImage: !currentUser ? "url(" + "https://i.ibb.co/sPBf7X9/insure-new.jpg" + ")" : "",
+       backgroundRepeat: 'no-repeat',
+       backgroundSize: "cover",
+       backgroundPosition: 'center'
+       }}>
         <nav className="navbar navbar-expand navbar-dark" style={{backgroundColor:navColor}}>
           <Link to={"/"} className="navbar-brand">
             Blockchain Enabled Insurance
@@ -124,7 +130,7 @@ function App() {
       {/* <button onClick={getInsuranceCount}>Get Count</button>
       <div style={{color:'white'}}>Insurance Count : {insuranceCount} </div> */}
       </div>
-
+      </div>
     </Router>
   )
 }

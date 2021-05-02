@@ -1,0 +1,31 @@
+/* .image {
+    position: relative;
+    bottom: 0;
+    vertical-align: bottom;
+} */
+img {
+    width: "100px";
+    height: 110px;
+    object-fit: cover;
+}
+.base-margin-bottom {
+    margin-bottom: 5%;
+}
+h3 {
+    color: lightyellow;
+    font-family: "Lucida Calligraphy";
+}
+h1 {
+    color: white;
+    font-family: "Lucida Calligraphy";
+}
+h6 {
+    color: lightyellow;
+    width: 120px;
+    border-top: bisque;
+    font-family: cursive;
+}
+.secure {
+    text-align:left;
+
+}

@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import "./login.css"
+import './LandingLogin.css'
 
 import Form from 'react-validation/build/form'
 import Input from 'react-validation/build/input'
@@ -57,20 +58,33 @@ const Login = (props) => {
     return (
       <div>
       <div className="row">
-        <div className="col-4" style={{ color: 'white', backgroundColor: "#121212"}}>
-          <div className="card" style={{color: 'white', backgroundColor: '#121212', width:"50%", height:"50%"}}>
-            <img className="card-img-top" src="https://i.ibb.co/fGR5dw5/Pngtree-life-insurance-line-filled-icon-3786206.png" />
-            <h4 className="card-title" style={{textAlign: 'center'}}>Stay Insured</h4>
-          </div>
+        <div className="col-6">
+        <div className="row base-margin-bottom">
+          <h1>Trust Insure</h1>
         </div>
-        <div className="col-4" style={{ color: 'white', backgroundColor: "#121212"}}>
-          <div className="card" style={{color: 'white', backgroundColor: '#121212', width:"50%", height:"50%"}}>
-            <img className="card-img-top" src="https://www.linkpicture.com/q/20944526-removebg-preview_1.png" style={{width:"200px", height:"200px"}}/>
-            <h4 className="card-title" style={{textAlign: 'center'}}>Remain Covered</h4>
-          </div>
+        <div className="row base-margin-bottom">
+          <h3>Your Security, Our Promise!</h3>
         </div>
-        <div className="col-4" style={{borderRadius: "1%", backgroundColor: "#121212"}}>
-            <div className="card card-container" style={{padding:"20px", backgroundColor: "#181818", color: 'white'}}>
+        <div className="row">
+        <div className="col-4 secure">
+        
+        <img src="https://i.ibb.co/FVMN8rV/bwu.png" alt="bwu" border="0"/> 
+        <h6>Easy Claims Processing</h6>
+        </div>
+        <div className="col-4 secure">
+        <img src="https://i.ibb.co/J7qbNCb/muw.png" alt="muw" border="0"/> 
+        <h6>Better Medical Protection</h6>
+        </div>
+
+        <div className="col-4 secure">
+        <img src="https://i.ibb.co/Nx38CVc/ipt.png" alt="ipt" border="0"/> 
+        <h6>Ultra Secure Transactions</h6>
+        </div>
+        </div>
+        </div>
+        <div className="col-2"></div>
+        <div className="col-4" style={{borderRadius: "1%"}}>
+            <div className="card card-container" style={{padding:"20px", backgroundColor: "#282828", color: 'white'}}>
               <Form onSubmit={handleLogin} ref={form} style={{padding:"20px"}}>
                 <div className="form-group">
                   <label htmlFor="email">Email</label>
@@ -118,11 +132,11 @@ const Login = (props) => {
         </div>
         </div>
         <div className="row">
-          <div className="col-8">
-            <div className="card" style={{backgroundColor: "#121212", color:"gray"}}>
+          {/* <div className="col-8">
+            <div className="card" >
               <h5>With us, you can stay assured!</h5>
             </div>
-          </div>
+          </div> */}
         </div>
         </div>
     )
