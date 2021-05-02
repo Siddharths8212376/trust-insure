@@ -13,7 +13,7 @@ const userUrl = 'http://localhost:3001/api/users'
 const displayInsuranceDetails = (insurances) => (
     <div>
         <h4>Insurance Details </h4>
-       <table class="table" style={{width: "100%", overflowX:"scroll", display:"block"}}>
+       <table class="table" style={{width: "100%", overflowX:"auto", display:"block"}}>
   <thead>
     <tr>
       <th scope="col">ID</th>
@@ -50,7 +50,7 @@ const CreateInsuranceButton = () => (
 const displayHospitalInsureeDetails = (insurances) => (
     <div>
       <p>Hospital Details Here!</p>
-        <table class="table" style={{width: "100%", overflowX:"scroll", display:"block"}}>
+        <table class="table" style={{width: "100%", overflowX:"auto", display:"block"}}>
   <thead>
     <tr>
       <th scope="col">ID</th>
@@ -83,7 +83,7 @@ const displayHospitalInsureeDetails = (insurances) => (
 const displayBankInsureeDetails = (insurances) => (
     <div>
       <p>Bank Details Here! </p>
-        <table class="table" style={{width: "100%", overflowX:"scroll", display:"block"}}>
+        <table class="table" style={{width: "100%", overflowX:"auto",display:"block"}}>
   <thead>
     <tr>
       <th scope="col">ID</th>
@@ -116,7 +116,7 @@ const displayBankInsureeDetails = (insurances) => (
 const displayInsureeDetails = (insurances) => (
     <div>
       <p>Insuree Details Here!</p>
-        <table class="table" style={{width: "100%", overflowX:"scroll", display:"block"}}>
+        <table class="table" style={{width: "100%", overflowX:"auto", display:"block"}}>
   <thead>
     <tr>
       <th scope="col">ID</th>
