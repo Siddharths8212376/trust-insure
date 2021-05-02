@@ -18,7 +18,7 @@ import { history } from './helpers/history'
 
 import BlockSecureDeployer from './abi/BlockSecureDeployer.json'
 import background from "./components/bgm.PNG";
-import "./css/App.css";
+// import "./css/App.css";
 
 
 function App() {
@@ -68,11 +68,8 @@ function App() {
     
 
     <Router history={history}>
-      <div classname='bg' style={{ backgroundImage: `url(${background})`}}>
-      
-    
-      
-        <nav className="navbar navbar-expand navbar-dark">
+      <div>
+        <nav className="navbar navbar-expand navbar-dark bg-dark">
           <Link to={"/"} className="navbar-brand">
             Insurances
           </Link>
@@ -80,7 +77,7 @@ function App() {
             <div className="navbar-nav ml-auto">
               <li className="nav-item">
                 <Link to={"/profilehome"} className="nav-link">
-                  User
+                  Home
                 </Link>
               </li>
               <li className="nav-item">
