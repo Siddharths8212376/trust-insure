@@ -83,7 +83,7 @@ function App() {
        backgroundPosition: 'center'
        }}>
         <nav className="navbar navbar-expand navbar-dark" style={{backgroundColor:navColor}}>
-          <Link to={"/"} className="navbar-brand">
+          <Link to={"/"} className="navbar-brand nav-title">
             Blockchain Enabled Insurance
           </Link>
           {currentUser ? (

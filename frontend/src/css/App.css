@@ -3,3 +3,6 @@
 .navbar .nav-item:hover .nav-link:hover {
     color: #ffffff;
 }
+.nav-title {
+    font-family: cursive;
+}
