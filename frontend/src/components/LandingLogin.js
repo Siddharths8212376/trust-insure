@@ -56,11 +56,21 @@ const Login = (props) => {
     }
     return (
       <div>
-        <div className="description card" style={{float: 'left', color: 'white', padding: '1%', width: "30%", height: "30%", backgroundColor: "#121212"}}>
-          <img src="https://i.ibb.co/fGR5dw5/Pngtree-life-insurance-line-filled-icon-3786206.png" alt="insure" border="0"/>
+      <div className="row">
+        <div className="col-4" style={{ color: 'white', backgroundColor: "#121212"}}>
+          <div className="card" style={{color: 'white', backgroundColor: '#121212', width:"50%", height:"50%"}}>
+            <img className="card-img-top" src="https://i.ibb.co/fGR5dw5/Pngtree-life-insurance-line-filled-icon-3786206.png" />
+            <h4 className="card-title" style={{textAlign: 'center'}}>Stay Insured</h4>
+          </div>
         </div>
-        <div className="col-md-5 login-form-1" style={{borderRadius: "1%", backgroundColor: "#121212", float: 'right'}}>
-            <div className="card card-container" style={{padding:"20px", backgroundColor: "#282828", color: 'white'}}>
+        <div className="col-4" style={{ color: 'white', backgroundColor: "#121212"}}>
+          <div className="card" style={{color: 'white', backgroundColor: '#121212', width:"50%", height:"50%"}}>
+            <img className="card-img-top" src="https://www.linkpicture.com/q/20944526-removebg-preview_1.png" style={{width:"200px", height:"200px"}}/>
+            <h4 className="card-title" style={{textAlign: 'center'}}>Remain Covered</h4>
+          </div>
+        </div>
+        <div className="col-4" style={{borderRadius: "1%", backgroundColor: "#121212"}}>
+            <div className="card card-container" style={{padding:"20px", backgroundColor: "#181818", color: 'white'}}>
               <Form onSubmit={handleLogin} ref={form} style={{padding:"20px"}}>
                 <div className="form-group">
                   <label htmlFor="email">Email</label>
@@ -106,7 +116,14 @@ const Login = (props) => {
               </Form>
             </div>
         </div>
-
+        </div>
+        <div className="row">
+          <div className="col-8">
+            <div className="card" style={{backgroundColor: "#121212", color:"gray"}}>
+              <h5>With us, you can stay assured!</h5>
+            </div>
+          </div>
+        </div>
         </div>
     )
 }

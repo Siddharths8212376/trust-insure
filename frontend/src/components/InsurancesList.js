@@ -31,7 +31,7 @@ const InsurancesList = () => {
             <ul style={{ listStyleType: "none"}}>
             {insuranceList.map((insurance)=>
                 <li key={insurance.id}>
-                    <div className="card" style={{margin: "2%"}}>
+                    <div className="card" style={{margin: "2%", backgroundColor: "#181818", color: "white"}}>
                         <div className="card-body">
                         <h5 className="card-title">{insurance.policyName}</h5>
                         <p className="card-body"> Insured By: {insurance.insurerName} <br/>

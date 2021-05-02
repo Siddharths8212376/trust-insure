@@ -78,7 +78,7 @@ function App() {
       <div style={{backgroundColor:"#121212", display:"flex", flexFlow:"column"}}>
         <nav className="navbar navbar-expand navbar-dark" style={{backgroundColor:navColor}}>
           <Link to={"/"} className="navbar-brand">
-            Insurances
+            Blockchain Enabled Insurance
           </Link>
           {currentUser ? (
             <div className="navbar-nav ml-auto">
@@ -109,7 +109,7 @@ function App() {
             </div>
           )}
         </nav>
-      <div className="container mt-5" style={{minHeight:"100vh"}}>
+      <div className="mt-5" style={{minHeight:"100vh", marginRight:"4%", marginLeft:"4%"}}>
         <Switch>
           <Route exact path={["/", "/login"]} component={Login} />
           <Route exact path="/register" component={Register} />

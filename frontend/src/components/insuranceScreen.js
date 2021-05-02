@@ -24,7 +24,7 @@ const InsuranceScreen = () => {
     } 
  
     return (
-        <div className="card">
+        <div className="card" style={{backgroundColor: "#181818", color: 'white'}}>
             <div className="card-body">
             <h5 className="card-title">{insurance.policyName}</h5>
             <p className="card-text">{insurance.insuranceDescription}</p>

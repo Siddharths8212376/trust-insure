@@ -5,14 +5,14 @@ import './Register.css'
 
 const Button = ({ name, set, setIsInd}) => {
   return (
-    <button className="btn btn-primary" style={{marginBottom:"20px", marginLeft:"10px", marginRight:"10px", marginTop:"20px"}} onClick={()=>{setIsInd(set)}}>{name}</button>
+    <button className="btn btn-primary" style={{marginBottom:"20px", marginLeft:"5%", marginRight:"0px", marginTop:"20px"}} onClick={()=>{setIsInd(set)}}>{name}</button>
   )
 }
 const Register = () => {
     const [isInd, setIsInd] = useState(true)
     return (
         <div>
-          <h3 style={{color: "white", marginLeft:"1%"}}> You are</h3>
+          <h3 style={{color: "white", marginLeft: "5%"}}> You are</h3>
           {/* <div class="col-md-6 login-form-1">
             <h3 className="display-4" style={{fontSize:'2rem'}}>Individual</h3>
             <Individual/> 

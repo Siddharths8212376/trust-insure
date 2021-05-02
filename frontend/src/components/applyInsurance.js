@@ -105,7 +105,7 @@ const ApplicationForm = ({ aadhaar, setAadhaar, name, setName, gender, setGender
         console.log(currentUser.user.address, "logging user address")
     }
     return (
-    <div>
+    <div style={{color: 'gray'}}>
         <form>
         <div className="form-group">
             <label for="inputName">Name</label>
@@ -178,8 +178,7 @@ const Apply = () => {
     } 
     if (appliedSuccessfully) return <Redirect to="/profilehome" />
     return (
-        <div>
-        Apply Here
+        <div style={{color: 'white'}}>
         <div>
         <span><bold>{insurance.policyName}</bold> Insured By: {insurance.insurerName} Address: {insurance.insurerAddress} Sum Assured: {insurance.sumAssured} Term: {insurance.policyTerm}</span>
         </div>

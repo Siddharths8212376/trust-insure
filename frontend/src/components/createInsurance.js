@@ -95,11 +95,13 @@ const CreateForm = ({ currentUser, policyName, setPolicyName, sumAssured, setSum
     )
 }
 const NotifyInsuranceCreated = ({ createdMessage }) => {
+    if ({createdMessage} !== '') {
     return (
         <div role="alert" className="alert alert-primary" style={{margin:"30px"}}>
         {createdMessage}
         </div>
-    )
+    ) 
+    }
 }
 const CreateInsurance = () => {
     // provide a form here
@@ -116,7 +118,7 @@ const CreateInsurance = () => {
     // resolve the radio issue here
     if (insuranceCreated) return <Redirect to="/profilehome" />
     return (
-        <div>Create Insurance Here!
+        <div style={{color: 'white'}}>
         <CreateForm currentUser={currentUser} policyName={policyName} setPolicyName={setPolicyName} sumAssured={sumAssured} setSumAssured={setSumAssured}  policyTerm={policyTerm} setPolicyTerm={setPolicyTerm} premiumPayment={premiumPayment} setPremiumPayment={setPremiumPayment} paymentTerm={paymentTerm} setPaymentTerm={setPaymentTerm} setCreatedMessage={setCreatedMessage} setInsuranceCreated={setInsuranceCreated} insuranceDescription={insuranceDescription} setInsuranceDescription={setInsuranceDescription}/>
         <NotifyInsuranceCreated createdMessage={createdMessage} />
         </div>

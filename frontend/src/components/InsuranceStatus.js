@@ -819,7 +819,7 @@ const InsuranceStatus = () => {
         console.log(currentUser, 'logged In')
     }
     return (
-        <div>Insurance with id: {id} here! <br/>
+        <div style={{color: "gray"}}>Insurance with id: {id} here! <br/>
         {/* Insurance Details Here: */}
         <DisplayInsuranceStatus currentUser={currentUser} insurance={insurance}/>
         </div>
