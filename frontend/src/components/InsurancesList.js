@@ -28,10 +28,19 @@ const InsurancesList = () => {
     } 
     return (
         <div>
-            <ul>
+            <ul style={{ listStyleType: "none"}}>
             {insuranceList.map((insurance)=>
-                <li key={insurance.id}><span><bold>Name: {insurance.policyName}</bold> Insured By: {insurance.insurerName} Address: {insurance.insurerAddress} Sum Assured: {insurance.sumAssured} Term: {insurance.policyTerm}</span>
-                    <a href={`/insurance-screen/${insurance.id}`} role="button" className="btn btn-primary">Show Details</a> 
+                <li key={insurance.id}>
+                    <div className="card" style={{margin: "2%"}}>
+                        <div className="card-body">
+                        <h5 className="card-title">{insurance.policyName}</h5>
+                        <p className="card-body"> Insured By: {insurance.insurerName} <br/>
+                         Address: {insurance.insurerAddress} <br/>
+                         Sum Assured: {insurance.sumAssured} Term: {insurance.policyTerm}
+                        </p>
+                        <a href={`/insurance-screen/${insurance.id}`} role="button" className="btn btn-primary">Show Details</a> 
+                        </div>
+                    </div>
                 </li>
             )}
             </ul>
