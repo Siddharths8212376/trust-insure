@@ -117,8 +117,8 @@ function App() {
           <Route exact path="/insurance-status/:id" component={InsuranceStatus} />
         </Switch>
       </div>
-      <button onClick={getInsuranceCount}>Get Count</button>
-      <div style={{color:'white'}}>Insurance Count : {insuranceCount} </div>
+      {/* <button onClick={getInsuranceCount}>Get Count</button>
+      <div style={{color:'white'}}>Insurance Count : {insuranceCount} </div> */}
       </div>
       
     </Router>
