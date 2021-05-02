@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom'
 import axios from 'axios'
 
 const listUrl = 'http://localhost:3001/api/insurance-list'
-const CreateForm = ({ currentUser, policyName, setPolicyName, sumAssured, setSumAssured, policyTerm, setPolicyTerm, premiumPayment, setPremiumPayment, paymentTerm, setPaymentTerm, setCreatedMessage, setInsuranceCreated}) => {
+const CreateForm = ({ currentUser, policyName, setPolicyName, sumAssured, setSumAssured, policyTerm, setPolicyTerm, premiumPayment, setPremiumPayment, paymentTerm, setPaymentTerm, setCreatedMessage, setInsuranceCreated, insuranceDescription, setInsuranceDescription}) => {
     const handlePolicyName = (e) => {
         setPolicyName(e.target.value)
     }
@@ -21,6 +21,9 @@ const CreateForm = ({ currentUser, policyName, setPolicyName, sumAssured, setSum
     const handlePaymentTerm = (e) => {
         setPaymentTerm(e.target.value)
     }
+    const handleInsuranceDescription = (e) => {
+        setInsuranceDescription(e.target.value)
+    }
     const handleSubmit = async (e) => {
         e.preventDefault()
         console.log(policyName, sumAssured, premiumPayment, policyTerm, paymentTerm, currentUser.user.address, currentUser.user.email)
@@ -31,7 +34,8 @@ const CreateForm = ({ currentUser, policyName, setPolicyName, sumAssured, setSum
             sumAssured: Number(sumAssured),
             premiumPayment: premiumPayment,
             policyTerm: Number(policyTerm),
-            paymentTerm: Number(paymentTerm)
+            paymentTerm: Number(paymentTerm),
+            insuranceDescription: insuranceDescription
         })
         .then((response) => {
             console.log(response.data)
@@ -55,6 +59,10 @@ const CreateForm = ({ currentUser, policyName, setPolicyName, sumAssured, setSum
                 <input type="text" className="form-control" id="InputPolicyType" value={policyName} placeholder="Enter Policy Type" onChange={handlePolicyName}/>
             </div>
             <div className="form-group">
+                <label for="insuranceDescription"><bold>Description</bold></label>
+                <input type="text" className="form-control" id="InsuranceDesc" value={insuranceDescription} placeholder="Add a description" onChange={handleInsuranceDescription}/>
+            </div>
+            <div className="form-group">
                 <label for="sumAssured"><bold>Sum Assured</bold></label>
                 <input type="text" className="form-control" id="InputSumAssured" value={sumAssured} placeholder="Enter Sum Assured" onChange={handleSumAssured}/>
             </div>
@@ -66,10 +74,7 @@ const CreateForm = ({ currentUser, policyName, setPolicyName, sumAssured, setSum
                 <label for="paymentTerm"><bold>Payment Term</bold></label>
                 <input type="text" className="form-control" id="InputPaymentTerm" value={paymentTerm} placeholder="Enter Payment Term" onChange={handlePaymentTerm}/>
             </div>
-            {/* <div className="form-group">
-                <label for="sumAssured"><bold>Premium</bold></label>
-                <input type="text" className="form-control" id="InputPremium" value={premiumPayment} placeholder="Premium or not?" onChange={handlePremiumPayment}/>
-            </div> */}
+            
             <label for="premium"><bold>Premium Payment</bold></label>
             <br/>
             <div class="form-check form-check-inline">
@@ -103,6 +108,7 @@ const CreateInsurance = () => {
     const [policyName, setPolicyName] = useState('')
     const [sumAssured, setSumAssured] = useState('')
     const [policyTerm, setPolicyTerm] = useState('')
+    const [insuranceDescription, setInsuranceDescription] = useState('')
     const [paymentTerm, setPaymentTerm] = useState('')
     const [premiumPayment, setPremiumPayment] = useState(true)
     const [insuranceCreated, setInsuranceCreated] = useState(false)
@@ -111,7 +117,7 @@ const CreateInsurance = () => {
     if (insuranceCreated) return <Redirect to="/profilehome" />
     return (
         <div>Create Insurance Here!
-        <CreateForm currentUser={currentUser} policyName={policyName} setPolicyName={setPolicyName} sumAssured={sumAssured} setSumAssured={setSumAssured}  policyTerm={policyTerm} setPolicyTerm={setPolicyTerm} premiumPayment={premiumPayment} setPremiumPayment={setPremiumPayment} paymentTerm={paymentTerm} setPaymentTerm={setPaymentTerm} setCreatedMessage={setCreatedMessage} setInsuranceCreated={setInsuranceCreated}/>
+        <CreateForm currentUser={currentUser} policyName={policyName} setPolicyName={setPolicyName} sumAssured={sumAssured} setSumAssured={setSumAssured}  policyTerm={policyTerm} setPolicyTerm={setPolicyTerm} premiumPayment={premiumPayment} setPremiumPayment={setPremiumPayment} paymentTerm={paymentTerm} setPaymentTerm={setPaymentTerm} setCreatedMessage={setCreatedMessage} setInsuranceCreated={setInsuranceCreated} insuranceDescription={insuranceDescription} setInsuranceDescription={setInsuranceDescription}/>
         <NotifyInsuranceCreated createdMessage={createdMessage} />
         </div>
     )

@@ -24,10 +24,16 @@ const InsuranceScreen = () => {
     } 
  
     return (
-        <div>Show insurance details!
+        <div className="card">
+            <div className="card-body">
+            <h5 className="card-title">{insurance.policyName}</h5>
+            <p className="card-text">{insurance.insuranceDescription}</p>
+            Insured By: {insurance.insurerName} <br />
+            Sum Assured: {insurance.sumAssured} <br />
+            Term: {insurance.policyTerm} years <br />
 
-            <span><bold>{insurance.policyName}</bold> Insured By: {insurance.insurerName} Sum Assured: {insurance.sumAssured} Term: {insurance.policyTerm}</span>
-            <a href={`/apply/${insurance.id}`} role="button" className="btn btn-danger">Apply Here</a> 
+            <p><a href={`/apply/${insurance.id}`} role="button" className="btn btn-danger">Apply Here</a> </p>
+            </div>
         </div>
     )
 } 

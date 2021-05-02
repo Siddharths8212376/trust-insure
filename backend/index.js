@@ -24,7 +24,8 @@ app.post('/api/insurance-list', jsonParser, async (request, response)=> {
         sumAssured: body.sumAssured,
         premiumPayment: body.premiumPayment,
         policyTerm: body.policyTerm,
-        paymentTerm: body.paymentTerm
+        paymentTerm: body.paymentTerm,
+        insuranceDescription: body.insuranceDescription
     })
     const savedInsuranceInstance = await insuranceInstance.save()
     console.log(savedInsuranceInstance)
