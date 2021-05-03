@@ -8,7 +8,7 @@ import BlockSecureDeployer from '../abi/BlockSecureDeployer.json'
 
 const insUrl = 'http://localhost:3001/api/insurances'
 const userUrl = 'http://localhost:3001/api/users'
-const states = ['Confirm Details', 'Being Processed', 'Accepted Policy', 'Invoked Claim', 'Accepted Claim', 'Rejected Claim', 'Rejected Policy']
+const states = ['Confirm Details', 'Being Processed', 'Accepted Policy', 'Invoked Claim', 'Accepted Claim', 'Rejected Claim', 'Rejected Policy', 'Accept Policy']
 const stateDesc = {
     0 : states[0],
     1 : states[1],
@@ -18,7 +18,7 @@ const stateDesc = {
     5 : states[1],
     "-1" : states[6],
     "-2" : states[5],
-    6 : states[1],
+    6 : states[7],
     7 : states[2],
     8 : states[3],
     9 : states[3],

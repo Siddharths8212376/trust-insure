@@ -8,7 +8,7 @@ import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import '../css/InsuranceStatus.css'
 const insUrl = 'http://localhost:3001/api/insurances'
 const putUrl = 'http://localhost:3001/api/insurances'
-const states = ['Confirm Details', 'Being Processed', 'Accepted Policy', 'Invoked Claim', 'Accepted Claim', 'Rejected Claim', 'Rejected Policy']
+const states = ['Confirm Details', 'Being Processed', 'Accepted Policy', 'Invoked Claim', 'Accepted Claim', 'Rejected Claim', 'Rejected Policy', 'Accept Policy']
 const stateDesc = {
     0 : states[0],
     1 : states[1],
@@ -18,7 +18,7 @@ const stateDesc = {
     5 : states[1],
     "-1" : states[6],
     "-2" : states[5],
-    6 : states[1],
+    6 : states[7],
     7 : states[2],
     8 : states[3],
     9 : states[3],
@@ -38,7 +38,7 @@ const InsuranceDetails = ({insurance}) => {
             Policy Term: {insurance.policyTerm} <br/>
             Payment Term: {insurance.paymentTerm} <br/>
             Current State: {insurance.state} ( {insurance.state >= 0 ? stateDesc[insurance.state] : 'Rejected' } )<br/>           
-            {insurance.state >= 4 && <div>Bank UW Done: {insurance.bankUWResult?"True":"False"} </div>}
+            {insurance.state >= 3 && <div>Bank UW Done: {insurance.bankUWResult?"True":"False"} </div>}
             {insurance.state >= 5 && <div>Med UW Done: {insurance.medUWResult?"True":"False"} </div>}
                 <div style={{ width: 200, height: 200, marginTop: "5%" }}>
                 {insurance.state >= 0 && insurance.state <= 7 && <CircularProgressbar
@@ -128,7 +128,7 @@ const ConfirmPolicyFinal = ({insurance}) => {
     }
     const handleSubmitConfirmPolicy = async (e) => {
         e.preventDefault()
-        const cp = confirmPolicy==='Yes'?true:false
+        const cp = confirmPolicy.toLowerCase()==='yes'?true:false
         const web3 = new Web3(Web3.givenProvider || "http://localhost:7545");
         web3.eth.getAccounts().then(console.log);
         if (web3) {
@@ -478,10 +478,10 @@ const UpdateFinancialHealth = ({ insurance }) => {
     const handleSubmitBUWDone = async (e) => {
         e.preventDefault()
         // console.log(customerVerificationDone, active, financialHealthPoints, bankUWResult)
-        const cv = customerVerificationDone==='Yes'?true:false
-        const act = active==='Yes'?true:false
+        const cv = customerVerificationDone.toLowerCase()==='yes'?true:false
+        const act = active.toLowerCase()==='yes'?true:false
         const fhp = Number(financialHealthPoints)
-        const buwr = bankUWResult==='Yes'?true:false
+        const buwr = (bankUWResult.toLowerCase()==='yes'||bankUWResult.toLowerCase()==='done')?true:false
         console.log(cv, act, fhp, buwr)
         const web3 = new Web3(Web3.givenProvider || "http://localhost:7545");
         web3.eth.getAccounts().then(console.log);
@@ -558,10 +558,10 @@ const UpdateMedicalHealth = ({ insurance }) => {
     const handleSubmitMUWDone = async (e) => {
         e.preventDefault()
         // console.log(customerVerificationDone, active, financialHealthPoints, bankUWResult)
-        const pv = physicalVerificationDone==='Yes'?true:false
-        const act = activeStatus==='Yes'?true:false
+        const pv = physicalVerificationDone.toLowerCase()==='yes'?true:false
+        const act = activeStatus.toLowerCase()==='yes'?true:false
         const mhp = Number(healthScore)
-        const muwr = medUWResult==='Yes'?true:false
+        const muwr = (medUWResult.toLowerCase()==='yes'||medUWResult.toLowerCase()==='done')?true:false
         console.log(pv, act, mhp, muwr)
         const web3 = new Web3(Web3.givenProvider || "http://localhost:7545");
         web3.eth.getAccounts().then(console.log);
@@ -658,13 +658,13 @@ const RecalculatePolicy = ({ insurance }) => {
     const handleSubmitRecalculatePolicy = async (e) => {
         e.preventDefault()
         // console.log(customerVerificationDone, active, financialHealthPoints, bankUWResult)
-        const pr = premiumReceived==='Yes'?true:false
+        const pr = premiumReceived.toLowerCase()==='yes'?true:false
         const pn = Number(policyNumber)
         const issd = Number(issuanceDate) 
         const matd = Number(maturityDate)
         const pf = Number(premiumFinal)
         const saf = Number(sumAssuredFinal)
-        const pi = policyIssued==='Yes'?true:false
+        const pi = policyIssued.toLowerCase()==='yes'?true:false
 
         console.log(pr, pn, issd, matd, pf, saf, pi)
         const web3 = new Web3(Web3.givenProvider || "http://localhost:7545");
