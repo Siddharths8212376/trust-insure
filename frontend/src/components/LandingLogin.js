@@ -84,7 +84,7 @@ const Login = (props) => {
         </div>
         <div className="col-2"></div>
         <div className="col-4" style={{borderRadius: "1%"}}>
-            <div className="card card-container" style={{padding:"20px", backgroundColor: "#282828", color: 'white'}}>
+            <div className="card card-container" style={{padding:"20px", backgroundColor: "#282828", color: 'white', boxShadow: "2px 2px 4px #121212"}}>
               <Form onSubmit={handleLogin} ref={form} style={{padding:"20px"}}>
                 <div className="form-group">
                   <label htmlFor="email">Email</label>
