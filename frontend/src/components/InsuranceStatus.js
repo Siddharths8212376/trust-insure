@@ -49,9 +49,9 @@ const InsuranceDetails = ({insurance}) => {
                         strokeLinecap: 'butt',
                         textSize: '16px',
                         pathTransitionDuration: 0.5,
-                        pathColor: `rgba(0, 0, 255, ${(insurance.state / 7) * 1.5 > 1 ? 1 : (insurance.state / 7)})`,
-                        textColor: 'blue',
-                        trailColor: 'lightgray',
+                        pathColor: `rgba(173,216,230, ${(insurance.state / 7) * 1.5 > 1 ? 1 : (insurance.state / 7)})`,
+                        textColor: 'lightblue',
+                        trailColor: '#212121',
                         backgroundColor: '#3e98c7',
                     })}
                 />}
@@ -63,9 +63,9 @@ const InsuranceDetails = ({insurance}) => {
                         strokeLinecap: 'butt',
                         textSize: '16px',
                         pathTransitionDuration: 0.5,
-                        pathColor: `rgba(0, 199, 0, ${(insurance.state - 7) / 4})`,
-                        textColor: 'green',
-                        trailColor: 'lightgray',
+                        pathColor: `rgba(144,238,144, ${(insurance.state - 7) / 4})`,
+                        textColor: 'lightgreen',
+                        trailColor: '#212121',
                         backgroundColor: '#3e98c7',
                     })}
                 />}
@@ -861,7 +861,7 @@ const InsuranceStatus = () => {
     }
     console.log(insurance, 'after load');
     return (
-        <div style={{color: "gray"}}>Insurance Id: {id}  <br/>
+        <div style={{color: "lightyellow", backgroundColor: "#282828", padding: "2%", borderRadius: "1%", marginBottom: "2%"}}>Insurance Id: {id}  <br/>
         {/* Insurance Details Here: */}
         <DisplayInsuranceStatus currentUser={currentUser} insurance={insurance}/>
         </div>
