@@ -33,7 +33,7 @@ const InsuranceDetails = ({insurance}) => {
             Subscriber: {insurance.name} <br/>
             Aadhaar Number: {insurance.aadhaarNumber} <br/>
             Insurance Name: {insurance.policyName} <br/>
-            Insurance Provider: {insurance.insurerAddress} <br/>
+            Insurance Provider: {insurance.insurerName} <br/>
             Sum Assured: {insurance.sumAssured} <br/>
             Policy Term: {insurance.policyTerm} <br/>
             Payment Term: {insurance.paymentTerm} <br/>
