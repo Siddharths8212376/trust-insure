@@ -18,7 +18,7 @@ const displayInsuranceDetails = (insurances) => (
     <tr>
       <th scope="col">ID</th>
       <th scope="col">Provider</th>
-      <th scope="col">Type</th>
+      <th scope="col">Name</th>
       <th scope="col">Sum Assured</th>
       <th scope="col">Claim Status</th>
       <th scope="col">Details</th>

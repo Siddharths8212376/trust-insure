@@ -8,7 +8,23 @@ import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import '../css/InsuranceStatus.css'
 const insUrl = 'http://localhost:3001/api/insurances'
 const putUrl = 'http://localhost:3001/api/insurances'
-
+const states = ['Confirm Details', 'Being Processed', 'Accepted Policy', 'Invoked Claim', 'Accepted Claim', 'Rejected Claim', 'Rejected Policy']
+const stateDesc = {
+    0 : states[0],
+    1 : states[1],
+    2 : states[1],
+    3 : states[1],
+    4 : states[1],
+    5 : states[1],
+    "-1" : states[6],
+    "-2" : states[5],
+    6 : states[1],
+    7 : states[2],
+    8 : states[3],
+    9 : states[3],
+    10 : states[3],
+    11: states[4]
+}
 
 const InsuranceDetails = ({insurance}) => {
     return (
@@ -20,7 +36,7 @@ const InsuranceDetails = ({insurance}) => {
             Sum Assured: {insurance.sumAssured} <br/>
             Policy Term: {insurance.policyTerm} <br/>
             Payment Term: {insurance.paymentTerm} <br/>
-            Current State: {insurance.state} <br/>           
+            Current State: {insurance.state} ( {insurance.state >= 0 ? stateDesc[insurance.state] : 'Rejected' } )<br/>           
             {insurance.state >= 4 && <div>Bank UW Done: {insurance.bankUWResult?"True":"False"} </div>}
             {insurance.state >= 5 && <div>Med UW Done: {insurance.medUWResult?"True":"False"} </div>}
                 <div style={{ width: 200, height: 200, marginTop: "5%" }}>
@@ -54,7 +70,7 @@ const InsuranceDetails = ({insurance}) => {
                 />}
                 {insurance.state < 0 && <CircularProgressbar
                     value={100}
-                    text={`${insurance.state}`}
+                    text={`R`}
                     styles={buildStyles({
                         rotation: 0,
                         strokeLinecap: 'butt',
