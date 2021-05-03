@@ -19,7 +19,7 @@ const InsuranceDetails = ({insurance}) => {
             Payment Term: {insurance.paymentTerm} <br/>
             Current State: {insurance.state} <br/>           
                 <div style={{ width: 200, height: 200 }}>
-                {insurance.state <= 7 && <CircularProgressbar
+                {insurance.state >= 0 && insurance.state <= 7 && <CircularProgressbar
                     value={insurance.state/7*100}
                     text={`${insurance.state}`}
                     styles={buildStyles({
@@ -44,6 +44,20 @@ const InsuranceDetails = ({insurance}) => {
                         pathColor: `rgba(0, 0, 199, ${insurance.state / 11})`,
                         textColor: 'orange',
                         trailColor: 'orange',
+                        backgroundColor: '#3e98c7',
+                    })}
+                />}
+                {insurance.state < 0 && <CircularProgressbar
+                    value={100}
+                    text={`${insurance.state}`}
+                    styles={buildStyles({
+                        rotation: 0,
+                        strokeLinecap: 'butt',
+                        textSize: '16px',
+                        pathTransitionDuration: 0.5,
+                        pathColor: `rgba(0, 0, 199, ${1})`,
+                        textColor: '#f88',
+                        trailColor: 'red',
                         backgroundColor: '#3e98c7',
                     })}
                 />}
@@ -119,6 +133,7 @@ const ConfirmPolicyFinal = ({insurance}) => {
                    await axios.put(`http://localhost:3001/api/insurances/${insurance.ID}`, insurance)
                             .then(() => {
                         window.location.reload()
+                        // return <Redirect to="/profilehome" />
                     })
                 }
             }
@@ -392,13 +407,16 @@ const AcceptOrRejectClaim = ({ insurance }) => {
                 
                 // confirm details to be called.
                 await deployedContract.methods.ClaimRequestRejected(Number(insurance.ID)-1).send({ from: accounts[0] })
-                    .then(() => {
-                        window.location.reload()
-                    })
+                    
                 // update db
                 insurance.state = -2;
+                console.log(insurance.state, 'insurance rejected');
                 // fetch the current insurance from the db, and update it
                 await axios.put(`http://localhost:3001/api/insurances/${insurance.ID}`, insurance)
+                        .then(() => {
+                        window.location.reload()
+                        // return <Redirect to="/profilehome"/>
+                    })
             }
         }
 
@@ -720,7 +738,7 @@ const DisplayInsuranceStatus = ({ currentUser, insurance }) => {
             
             </div>
         )
-    } else if (currentUser.user.type==='Insurer' && insurance.state>=1) {
+    } else if (currentUser.user.type==='Insurer' && (insurance.state>=1 || insurance.state < 0)) {
         return (
             <div>
                 <InsuranceDetails insurance={insurance}/>
@@ -818,6 +836,7 @@ const InsuranceStatus = () => {
     } else {
         console.log(currentUser, 'logged In')
     }
+    console.log(insurance, 'after load');
     return (
         <div style={{color: "gray"}}>Insurance with id: {id} here! <br/>
         {/* Insurance Details Here: */}
