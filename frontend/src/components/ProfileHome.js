@@ -291,7 +291,7 @@ const ProfileHome = () => {
     } 
     console.log(insurances, 'render whatever')
     return (
-        <div style={{color: 'white'}}>
+        <div style={{color: 'white', borderRadius: "1%", backgroundColor:"#282828", padding: "2%"}}>
             {currentUser.user.type==='individual' ? <p>Your address: {currentUser.user.address} <br />  Your email: {currentUser.user.email} <br /> Your Aadhaar: {currentUser.user.aadhaarCardNumber}</p>
             : <div>Your email: {currentUser.user.email} <br/> Your address: {currentUser.user.address} </div>}
             {/* Add correct routing to these parts, from the insurance schema */}
