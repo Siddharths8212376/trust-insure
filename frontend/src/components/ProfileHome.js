@@ -10,7 +10,10 @@ const insUrl = 'http://localhost:3001/api/insurances'
 const userUrl = 'http://localhost:3001/api/users'
 
 
-const displayInsuranceDetails = (insurances) => (
+const displayInsuranceDetails = (insurances) => {
+  
+  if (insurances.length > 0) return (
+
     <div style={{marginTop:"2%"}}>
         <h4>ALL INSURANCES</h4>
        <table class="table" style={{width: "100%", overflowX:"auto", display:"block", color:'white'}}>
@@ -40,6 +43,11 @@ const displayInsuranceDetails = (insurances) => (
         <GetInsuranceButton />
     </div>
 )
+      return <div>
+        No Insurances to Display <br/>
+        <GetInsuranceButton />
+      </div>
+}
 const GetInsuranceButton = () => (
   <a href="/insurances-list" role="button" className="btn btn-danger">Buy Insurance</a>
 )
@@ -47,7 +55,8 @@ const CreateInsuranceButton = () => (
   // route to a page where in I can add an insurance
   <a href="/create-insurance" role="button" className="btn btn-primary">Add Insurance</a>
 )
-const displayHospitalInsureeDetails = (insurances) => (
+const displayHospitalInsureeDetails = (insurances) => {
+  if (insurances.length > 0) return (
     <div style={{marginTop:"2%"}}>
       <p>INSURANCE STATUS</p>
         <table class="table" style={{width: "100%", overflowX:"auto", display:"block", color: "white"}}>
@@ -80,7 +89,12 @@ const displayHospitalInsureeDetails = (insurances) => (
         </table>
     </div>
 )
-const displayBankInsureeDetails = (insurances) => (
+      return <div>
+        No Insurances to Display <br/>
+      </div>
+}
+const displayBankInsureeDetails = (insurances) => {
+  if (insurances.length > 0) return (
     <div style={{marginTop:"2%"}}>
       <p>INSURANCE STATUS</p>
         <table class="table" style={{width: "100%", overflowX:"auto",display:"block", color: "white"}}>
@@ -113,7 +127,12 @@ const displayBankInsureeDetails = (insurances) => (
         </table>
     </div>
 )
-const displayInsureeDetails = (insurances) => (
+  return <div>
+          No Insurances to Display <br/>
+        </div>
+}
+const displayInsureeDetails = (insurances) => {
+  if (insurances.length > 0) return (
     <div style={{marginTop:"2%"}}>
       <p>INSURANCE STATUS</p>
         <table class="table" style={{width: "100%", overflowX:"auto", display:"block", color: "white"}}>
@@ -149,6 +168,11 @@ const displayInsureeDetails = (insurances) => (
     </div>
 
 )
+return <div>
+        No Insurances to Display <br/>
+        <GetInsuranceButton />
+      </div>
+}
 const ProfileHome = () => {
     const { user: currentUser } = useSelector((state) => state.authReducer)
     const [deployerContract, setDeployerContract] = useState(null)
