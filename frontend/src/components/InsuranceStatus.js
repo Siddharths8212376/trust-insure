@@ -5,11 +5,14 @@ import Web3 from 'web3'
 import axios from 'axios'
 import BlockSecureDeployer from '../abi/BlockSecureDeployer.json'
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
+import '../css/InsuranceStatus.css'
 const insUrl = 'http://localhost:3001/api/insurances'
 const putUrl = 'http://localhost:3001/api/insurances'
+
+
 const InsuranceDetails = ({insurance}) => {
     return (
-        <div>
+        <div className="details">
             Username: {insurance.name} <br/>
             Aadhaar Number: {insurance.aadhaarNumber} <br/>
             Insurance Name: {insurance.policyName} <br/>
@@ -18,7 +21,7 @@ const InsuranceDetails = ({insurance}) => {
             Policy Term: {insurance.policyTerm} <br/>
             Payment Term: {insurance.paymentTerm} <br/>
             Current State: {insurance.state} <br/>           
-                <div style={{ width: 200, height: 200 }}>
+                <div style={{ width: 200, height: 200, marginTop: "5%" }}>
                 {insurance.state >= 0 && insurance.state <= 7 && <CircularProgressbar
                     value={insurance.state/7*100}
                     text={`${insurance.state}`}
@@ -27,9 +30,9 @@ const InsuranceDetails = ({insurance}) => {
                         strokeLinecap: 'butt',
                         textSize: '16px',
                         pathTransitionDuration: 0.5,
-                        pathColor: `rgba(0, 0, 199, ${insurance.state / 11})`,
-                        textColor: '#f88',
-                        trailColor: 'red',
+                        pathColor: `rgba(0, 0, 255, ${(insurance.state / 7) * 1.5 > 1 ? 1 : (insurance.state / 7)})`,
+                        textColor: 'blue',
+                        trailColor: 'lightgray',
                         backgroundColor: '#3e98c7',
                     })}
                 />}
@@ -41,9 +44,9 @@ const InsuranceDetails = ({insurance}) => {
                         strokeLinecap: 'butt',
                         textSize: '16px',
                         pathTransitionDuration: 0.5,
-                        pathColor: `rgba(0, 0, 199, ${insurance.state / 11})`,
-                        textColor: 'orange',
-                        trailColor: 'orange',
+                        pathColor: `rgba(0, 199, 0, ${(insurance.state - 7) / 4})`,
+                        textColor: 'green',
+                        trailColor: 'lightgray',
                         backgroundColor: '#3e98c7',
                     })}
                 />}
@@ -55,7 +58,7 @@ const InsuranceDetails = ({insurance}) => {
                         strokeLinecap: 'butt',
                         textSize: '16px',
                         pathTransitionDuration: 0.5,
-                        pathColor: `rgba(0, 0, 199, ${1})`,
+                        pathColor: `rgba(199, 0, 0, ${1})`,
                         textColor: '#f88',
                         trailColor: 'red',
                         backgroundColor: '#3e98c7',
@@ -726,7 +729,7 @@ const DisplayInsuranceStatus = ({ currentUser, insurance }) => {
             <div>
             <InsuranceDetails insurance={insurance}/> 
             {insurance.state===0&&<ConfirmDetails insurance={insurance}/>}
-            {insurance.state===1&&<div>You have confirmed your details. The application is begin processed. </div>}
+            {insurance.state===1&&<div>Thanks for confirming your details. The application is being processed. </div>}
             {insurance.state===5&&<div>The policy is being recalculated.</div>}
             {insurance.state===-1&&<div>Your Application was rejected.</div>}
             {insurance.state===6&&<ConfirmPolicyFinal insurance={insurance}/>}
@@ -735,6 +738,7 @@ const DisplayInsuranceStatus = ({ currentUser, insurance }) => {
             {insurance.state===10&&<div>The claim has been verified by the hospital. Waiting for final response from insurance provider</div>}
             {insurance.state===11&&<div>The claim has been accepted! </div>}
             {insurance.state===-2&&<div>The claim was rejected. </div>}
+            {(insurance.state===4 || insurance.state === 3)&&<div>The application is being processed </div>}
             
             </div>
         )
