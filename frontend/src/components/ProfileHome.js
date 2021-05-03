@@ -50,7 +50,7 @@ const displayInsuranceDetails = (insurances) => {
         <td>{insurance.insurerAddress}</td>
         <td>{insurance.policyName}</td>
         <td>{insurance.sumAssured}</td>
-        <td>{insurance.state > 0 ? stateDesc[insurance.state] : 'rejected'}</td>
+        <td>{insurance.state >= 0 ? stateDesc[insurance.state] : 'Rejected'}</td>
         <td><a href={`/insurance-status/${insurance.ID}`} role="button" className="btn btn-primary">Info</a></td>
         </tr>
           )}
