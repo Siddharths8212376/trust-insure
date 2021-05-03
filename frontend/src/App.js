@@ -82,7 +82,7 @@ function App() {
        backgroundSize: "cover",
        backgroundPosition: 'center'
        }}>
-        <nav className="navbar navbar-expand navbar-dark" style={{backgroundColor:navColor}}>
+        <nav className="navbar navbar-expand navbar-dark" style={{backgroundColor:navColor, position: 'fixed', top: 0, width: "100%", zIndex: 10, boxShadow: "0px 0px 4px #121212"}}>
           <Link to={"/"} className="navbar-brand nav-title">
             Blockchain Enabled Insurance
           </Link>
@@ -116,7 +116,7 @@ function App() {
             </div>
           )}
         </nav>
-      <div className="mt-5" style={{minHeight:"100vh", marginRight:"4%", marginLeft:"4%"}}>
+      <div className="mt-5" style={{minHeight:"100vh", marginRight:"4%", marginLeft:"4%", paddingTop: "40px"}}>
         <Switch>
           <Route exact path={["/", "/login"]} component={Login} />
           <Route exact path="/register" component={Register} />
@@ -131,6 +131,7 @@ function App() {
       {/* <button onClick={getInsuranceCount}>Get Count</button>
       <div style={{color:'white'}}>Insurance Count : {insuranceCount} </div> */}
       </div>
+      {!currentUser &&<div className="footer-copyright text-center py-3 ff" style={{backgroundColor:"#181818", position: 'fixed', bottom: 0, width: "100%", color: 'lightyellow', height:"40px", padding: "10px"}}> &#169; 2021 BEI</div>}
       </div>
     </Router>
   )
