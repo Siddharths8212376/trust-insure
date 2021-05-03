@@ -21,6 +21,8 @@ const InsuranceDetails = ({insurance}) => {
             Policy Term: {insurance.policyTerm} <br/>
             Payment Term: {insurance.paymentTerm} <br/>
             Current State: {insurance.state} <br/>           
+            {insurance.state >= 4 && <div>Bank UW Done: {insurance.bankUWResult?"True":"False"} </div>}
+            {insurance.state >= 5 && <div>Med UW Done: {insurance.medUWResult?"True":"False"} </div>}
                 <div style={{ width: 200, height: 200, marginTop: "5%" }}>
                 {insurance.state >= 0 && insurance.state <= 7 && <CircularProgressbar
                     value={insurance.state/7*100}
@@ -218,6 +220,7 @@ const RequestMedicalUnderwriting = ({ insurance }) => {
 const InvokeClaim = ({ insurance }) => {
     const [claimReason, setClaimReason] = useState('') 
     const [claimResponder, setClaimResponder] = useState('')
+    const [requiresClaim, setRequiresClaim] = useState(false)
     const handleClaimReason = (e) => {
         e.preventDefault()
         setClaimReason(e.target.value)
@@ -260,8 +263,9 @@ const InvokeClaim = ({ insurance }) => {
             </div>
     <button type="submit" class="btn btn-primary" onClick={handleSubmitInvokeClaim}>Submit</button>
             </form>
-        </div>
-    )    
+     </div>
+    )   
+    
 }
 
 const ClaimVerificationFromHospital = ({ insurance }) => {
@@ -733,7 +737,7 @@ const DisplayInsuranceStatus = ({ currentUser, insurance }) => {
             {insurance.state===5&&<div>The policy is being recalculated.</div>}
             {insurance.state===-1&&<div>Your Application was rejected.</div>}
             {insurance.state===6&&<ConfirmPolicyFinal insurance={insurance}/>}
-            {insurance.state===7&&<div>Your have confirmed the policy. You are eligible for invoking claims <InvokeClaim insurance={insurance}/></div>}
+            {insurance.state===7&&<div>You have confirmed the policy. You are eligible for invoking claims <InvokeClaim insurance={insurance}/></div>}
             {(insurance.state===8||insurance.state===9)&&<div>The claim has been invoked. Waiting for claim verification from hospital. </div>}
             {insurance.state===10&&<div>The claim has been verified by the hospital. Waiting for final response from insurance provider</div>}
             {insurance.state===11&&<div>The claim has been accepted! </div>}
