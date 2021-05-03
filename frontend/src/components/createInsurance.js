@@ -64,15 +64,15 @@ const CreateForm = ({ currentUser, policyName, setPolicyName, sumAssured, setSum
             </div>
             <div className="form-group">
                 <label for="sumAssured"><bold>Sum Assured</bold></label>
-                <input type="text" className="form-control" id="InputSumAssured" value={sumAssured} placeholder="Enter Sum Assured" onChange={handleSumAssured}/>
+                <input type="text" className="form-control" id="InputSumAssured" value={sumAssured} placeholder="Enter Sum Assured (Rs.)" onChange={handleSumAssured}/>
             </div>
             <div className="form-group">
                 <label for="policyTerm"><bold>Policy Term</bold></label>
-                <input type="text" className="form-control" id="InputPolicyTerm" value={policyTerm} placeholder="Enter Policy Term" onChange={handlePolicyTerm}/>
+                <input type="text" className="form-control" id="InputPolicyTerm" value={policyTerm} placeholder="Enter Policy Term (years)" onChange={handlePolicyTerm}/>
             </div>
             <div className="form-group">
                 <label for="paymentTerm"><bold>Payment Term</bold></label>
-                <input type="text" className="form-control" id="InputPaymentTerm" value={paymentTerm} placeholder="Enter Payment Term" onChange={handlePaymentTerm}/>
+                <input type="text" className="form-control" id="InputPaymentTerm" value={paymentTerm} placeholder="Enter Payment Term (years)" onChange={handlePaymentTerm}/>
             </div>
             
             <label for="premium"><bold>Premium Payment</bold></label>

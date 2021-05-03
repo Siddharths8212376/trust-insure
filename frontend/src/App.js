@@ -67,7 +67,7 @@ function App() {
   let navColor = '#282828'
   if (currentUser) {
     if (currentUser.user.type==='individual') navColor='#900C3F'
-    else if (currentUser.user.type==='Insurer') navColor='#DB5B12'
+    else if (currentUser.user.type==='Insurer') navColor='#FBC021'
     else if (currentUser.user.type==='Bank') navColor='#2598F3'
     else navColor='#378022'
   }
@@ -86,10 +86,11 @@ function App() {
           <Link to={"/"} className="navbar-brand nav-title">
             Blockchain Enabled Insurance
           </Link>
+
           {currentUser ? (
             <div className="navbar-nav ml-auto">
               <li className="nav-item">
-                <Link to={"/profilehome"} className="nav-link">
+                <Link to={"/"} className="nav-link">
                   Home
                 </Link>
               </li>
