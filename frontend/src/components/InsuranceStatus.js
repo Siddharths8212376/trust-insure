@@ -29,7 +29,7 @@ const stateDesc = {
 const InsuranceDetails = ({insurance}) => {
     return (
         <div className="details">
-            Username: {insurance.name} <br/>
+            Subscriber: {insurance.name} <br/>
             Aadhaar Number: {insurance.aadhaarNumber} <br/>
             Insurance Name: {insurance.policyName} <br/>
             Insurance Provider: {insurance.insurerName} <br/>
@@ -784,7 +784,6 @@ const DisplayInsuranceStatus = ({ currentUser, insurance }) => {
     } else if (currentUser.user.type==='Bank') {
         return (
             <div>
-                Bank func here
                 <InsuranceDetails insurance={insurance}/>
                 {insurance.state===2&&<UpdateFinancialHealth insurance={insurance}/>}
                 {insurance.state===3&&<div>Financial Health Updated. Sent to Insurance Provider. </div>}
@@ -799,7 +798,6 @@ const DisplayInsuranceStatus = ({ currentUser, insurance }) => {
     } else if (currentUser.user.type==='Hospital') {
         return (
             <div>
-                Hospital func here
                 <InsuranceDetails insurance={insurance}/>
                 {insurance.state===4&&<UpdateMedicalHealth insurance={insurance}/>}
                 {insurance.state===5&&<div>Medical Underwriting Done. Health Score Updated.</div>}
@@ -862,7 +860,7 @@ const InsuranceStatus = () => {
     }
     console.log(insurance, 'after load');
     return (
-        <div style={{color: "gray"}}>Insurance with id: {id} here! <br/>
+        <div style={{color: "gray"}}>Insurance Id: {id}  <br/>
         {/* Insurance Details Here: */}
         <DisplayInsuranceStatus currentUser={currentUser} insurance={insurance}/>
         </div>

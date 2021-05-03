@@ -11,8 +11,8 @@ const userUrl = 'http://localhost:3001/api/users'
 
 
 const displayInsuranceDetails = (insurances) => (
-    <div >
-        <h4>Insurance Details </h4>
+    <div style={{marginTop:"2%"}}>
+        <h4>ALL INSURANCES</h4>
        <table class="table" style={{width: "100%", overflowX:"auto", display:"block", color:'white'}}>
   <thead>
     <tr>
@@ -48,13 +48,13 @@ const CreateInsuranceButton = () => (
   <a href="/create-insurance" role="button" className="btn btn-primary">Add Insurance</a>
 )
 const displayHospitalInsureeDetails = (insurances) => (
-    <div>
-      <p>Hospital Details Here!</p>
+    <div style={{marginTop:"2%"}}>
+      <p>INSURANCE STATUS</p>
         <table class="table" style={{width: "100%", overflowX:"auto", display:"block", color: "white"}}>
   <thead>
     <tr>
       <th scope="col">ID</th>
-      <th scope="col">Username</th>
+      <th scope="col">Subscriber</th>
       <th scope="col">Aadhaar Card Number</th>
       <th scope="col">EthereumAddress</th>
       <th scope="col">Name of Insurance</th>
@@ -81,13 +81,13 @@ const displayHospitalInsureeDetails = (insurances) => (
     </div>
 )
 const displayBankInsureeDetails = (insurances) => (
-    <div>
-      <p>Bank Details Here! </p>
+    <div style={{marginTop:"2%"}}>
+      <p>INSURANCE STATUS</p>
         <table class="table" style={{width: "100%", overflowX:"auto",display:"block", color: "white"}}>
   <thead>
     <tr>
       <th scope="col">ID</th>
-      <th scope="col">Username</th>
+      <th scope="col">Subscriber</th>
       <th scope="col">Aadhaar Card Number</th>
       <th scope="col">EthereumAddress</th>
       <th scope="col">Name of Insurance</th>
@@ -114,13 +114,13 @@ const displayBankInsureeDetails = (insurances) => (
     </div>
 )
 const displayInsureeDetails = (insurances) => (
-    <div>
-      <p>Insuree Details Here!</p>
+    <div style={{marginTop:"2%"}}>
+      <p>INSURANCE STATUS</p>
         <table class="table" style={{width: "100%", overflowX:"auto", display:"block", color: "white"}}>
   <thead>
     <tr>
       <th scope="col">ID</th>
-      <th scope="col">Username</th>
+      <th scope="col">Subscriber</th>
       <th scope="col">Aadhaar Card Number</th>
       <th scope="col">EthereumAddress</th>
       <th scope="col">Name of Insurance</th>
@@ -252,8 +252,8 @@ const ProfileHome = () => {
     console.log(insurances, 'render whatever')
     return (
         <div style={{color: 'white'}}>
-            {currentUser.user.type==='individual' ? <p>Your address: {currentUser.user.address}  Your email: {currentUser.user.email}  Your Aadhaar: {currentUser.user.aadhaarCardNumber}</p>
-            : <div>Your email: {currentUser.user.email} Your address: {currentUser.user.address} </div>}
+            {currentUser.user.type==='individual' ? <p>Your address: {currentUser.user.address} <br />  Your email: {currentUser.user.email} <br /> Your Aadhaar: {currentUser.user.aadhaarCardNumber}</p>
+            : <div>Your email: {currentUser.user.email} <br/> Your address: {currentUser.user.address} </div>}
             {/* Add correct routing to these parts, from the insurance schema */}
             <div>{currentUser.user.type==='individual'
             ? displayInsuranceDetails(insurances) 
