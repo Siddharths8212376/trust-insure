@@ -9,6 +9,9 @@ const insuranceListSchema = new mongoose.Schema({
     insurerName: {
         type: String
     },
+    insurerEmail: {
+        type: String
+    },
     insurerAddress: {
         type: String
     },

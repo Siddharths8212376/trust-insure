@@ -30,7 +30,8 @@ const CreateForm = ({ currentUser, policyName, setPolicyName, sumAssured, setSum
         await axios.post(listUrl, {
             policyName: policyName,
             insurerAddress: currentUser.user.address,
-            insurerName: currentUser.user.email,
+            insurerName: currentUser.user.name,
+            insurerEmail: currentUser.user.email,
             sumAssured: Number(sumAssured),
             premiumPayment: premiumPayment,
             policyTerm: Number(policyTerm),

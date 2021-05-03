@@ -20,6 +20,7 @@ app.post('/api/insurance-list', jsonParser, async (request, response)=> {
     const insuranceInstance = new InsuranceList({
         policyName: body.policyName,
         insurerName: body.insurerName,
+        insurerEmail: body.insurerEmail,
         insurerAddress: body.insurerAddress,
         sumAssured: body.sumAssured,
         premiumPayment: body.premiumPayment,
@@ -49,6 +50,7 @@ app.post('/api/insurances', jsonParser, async (request, response) => {
         gender: body.gender,
         state: body.state,
         insurerAddress: body.insurerAddress,
+        insurerName: body.insurerName,
         bankUWAddress: body.bankUWAddress,
         medUWAddress: body.medUWAddress,
         policyName: body.policyName,

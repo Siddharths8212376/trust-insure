@@ -186,7 +186,7 @@ const displayInsureeDetails = (insurances) => {
 )
 return <div>
         No Insurances to Display <br/>
-        <GetInsuranceButton />
+        <CreateInsuranceButton />
       </div>
 }
 const ProfileHome = () => {

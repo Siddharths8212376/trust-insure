@@ -18,10 +18,10 @@ const registerUser = (username, email, password, aadhaarCardNumber, address, typ
     //     console.log(response.data, 'inside service')
     // })
 }
-const registerFirm = (username, email, password, address, type, firmtype) => {
+const registerFirm = (name, email, password, address, type, firmtype) => {
     const curList = []
     return axios.post(url + 'firms', {
-        username, 
+        name, 
         email,
         password,
         address,
