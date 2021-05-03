@@ -83,6 +83,7 @@ const ApplicationForm = ({ aadhaar, setAadhaar, name, setName, gender, setGender
             gender: gender,
             state: 0,
             insurerAddress:insurance.insurerAddress, 
+            insurerName: insurance.insurerName,
             bankUWAddress: bankuw,
             medUWAddress: meduw,
             policyName: insurance.policyName,

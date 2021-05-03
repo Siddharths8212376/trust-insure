@@ -47,7 +47,7 @@ const displayInsuranceDetails = (insurances) => {
       {insurances.map((insurance) => 
       <tr>
         <th scope="row">{insurance.ID}</th>
-        <td>{insurance.insurerAddress}</td>
+        <td>{insurance.insurerName}</td>
         <td>{insurance.policyName}</td>
         <td>{insurance.sumAssured}</td>
         <td>{insurance.state >= 0 ? stateDesc[insurance.state] : 'Rejected'}</td>
@@ -81,7 +81,7 @@ const displayHospitalInsureeDetails = (insurances) => {
       <th scope="col">ID</th>
       <th scope="col">Subscriber</th>
       <th scope="col">Aadhaar Card Number</th>
-      <th scope="col">EthereumAddress</th>
+      <th scope="col">Ethereum Address</th>
       <th scope="col">Name of Insurance</th>
       <th scope="col">Premium</th>
       <th scope="col">Current State</th>
@@ -119,7 +119,7 @@ const displayBankInsureeDetails = (insurances) => {
       <th scope="col">ID</th>
       <th scope="col">Subscriber</th>
       <th scope="col">Aadhaar Card Number</th>
-      <th scope="col">EthereumAddress</th>
+      <th scope="col">Ethereum Address</th>
       <th scope="col">Name of Insurance</th>
       <th scope="col">Premium</th>
       <th scope="col">Current State</th>
@@ -157,7 +157,7 @@ const displayInsureeDetails = (insurances) => {
       <th scope="col">ID</th>
       <th scope="col">Subscriber</th>
       <th scope="col">Aadhaar Card Number</th>
-      <th scope="col">EthereumAddress</th>
+      <th scope="col">Ethereum Address</th>
       <th scope="col">Name of Insurance</th>
       <th scope="col">Premium</th>
       <th scope="col">Current State</th>
