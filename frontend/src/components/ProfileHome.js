@@ -97,7 +97,7 @@ const displayHospitalInsureeDetails = (insurances) => {
         <td>{insuree.userAddress}</td>
         <td>{insuree.policyName}</td>
         <td>{insuree.sumAssured}</td>
-        <td>{insuree.state}</td>
+        <td>{insuree.state >= 0 ? stateDesc[insuree.state] : 'Rejected'}</td>
         <td><a href={`/insurance-status/${insuree.ID}`} role="button" className="btn btn-primary">Get Info</a></td>
         </tr>
           )}
@@ -135,7 +135,7 @@ const displayBankInsureeDetails = (insurances) => {
         <td>{insuree.userAddress}</td>
         <td>{insuree.policyName}</td>
         <td>{insuree.sumAssured}</td>
-        <td>{insuree.state}</td>
+        <td>{insuree.state >= 0 ? stateDesc[insuree.state] : 'Rejected'}</td>
         <td><a href={`/insurance-status/${insuree.ID}`} role="button" className="btn btn-primary">Get Info</a></td>
         </tr>
           )}
@@ -173,7 +173,7 @@ const displayInsureeDetails = (insurances) => {
         <td>{insuree.userAddress}</td>
         <td>{insuree.policyName}</td>
         <td>{insuree.sumAssured}</td>
-        <td>{insuree.state}</td>
+        <td>{insuree.state >= 0 ? stateDesc[insuree.state] : 'Rejected'}</td>
         <td><a href={`/insurance-status/${insuree.ID}`} role="button" className="btn btn-primary">Get Info</a></td>
         </tr>
           
