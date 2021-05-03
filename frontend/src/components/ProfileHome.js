@@ -5,7 +5,7 @@ import axios from 'axios'
 
 import Web3 from 'web3'
 import BlockSecureDeployer from '../abi/BlockSecureDeployer.json'
-
+import '../css/ProfileHome.css'
 const insUrl = 'http://localhost:3001/api/insurances'
 const userUrl = 'http://localhost:3001/api/users'
 const states = ['Confirm Details', 'Being Processed', 'Accepted Policy', 'Invoked Claim', 'Accepted Claim', 'Rejected Claim', 'Rejected Policy', 'Accept Policy']
