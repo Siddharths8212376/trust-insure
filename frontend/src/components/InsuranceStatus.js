@@ -27,12 +27,13 @@ const stateDesc = {
 }
 
 const InsuranceDetails = ({insurance}) => {
+    console.log(insurance)
     return (
         <div className="details">
             Subscriber: {insurance.name} <br/>
             Aadhaar Number: {insurance.aadhaarNumber} <br/>
             Insurance Name: {insurance.policyName} <br/>
-            Insurance Provider: {insurance.insurerName} <br/>
+            Insurance Provider: {insurance.insurerAddress} <br/>
             Sum Assured: {insurance.sumAssured} <br/>
             Policy Term: {insurance.policyTerm} <br/>
             Payment Term: {insurance.paymentTerm} <br/>

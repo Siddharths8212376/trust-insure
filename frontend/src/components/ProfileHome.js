@@ -8,7 +8,23 @@ import BlockSecureDeployer from '../abi/BlockSecureDeployer.json'
 
 const insUrl = 'http://localhost:3001/api/insurances'
 const userUrl = 'http://localhost:3001/api/users'
-
+const states = ['Confirm Details', 'Being Processed', 'Accepted Policy', 'Invoked Claim', 'Accepted Claim', 'Rejected Claim', 'Rejected Policy']
+const stateDesc = {
+    0 : states[0],
+    1 : states[1],
+    2 : states[1],
+    3 : states[1],
+    4 : states[1],
+    5 : states[1],
+    "-1" : states[6],
+    "-2" : states[5],
+    6 : states[1],
+    7 : states[2],
+    8 : states[3],
+    9 : states[3],
+    10 : states[3],
+    11: states[4]
+}
 
 const displayInsuranceDetails = (insurances) => {
   
@@ -34,7 +50,7 @@ const displayInsuranceDetails = (insurances) => {
         <td>{insurance.insurerAddress}</td>
         <td>{insurance.policyName}</td>
         <td>{insurance.sumAssured}</td>
-        <td>{insurance.state}</td>
+        <td>{insurance.state > 0 ? stateDesc[insurance.state] : 'rejected'}</td>
         <td><a href={`/insurance-status/${insurance.ID}`} role="button" className="btn btn-primary">Info</a></td>
         </tr>
           )}
