@@ -26,26 +26,59 @@
 }
 .btn-block {
   display: block;
+  
   width: 100%;
 }
 
+.btn-primary:focus {     
+  color: #fff;
+  background-color: #13777d!important;
+  border-color: #13777d!important;   
+  background: #13777d!important;
+}
+
+.btn-primary:active {     
+  color: #fff;
+  background-color: #13777d!important;
+  border-color: #13777d!important;   
+  background: #13777d!important;
+}
 
 .btn-primary {
   color: #fff;
-  background-color: #13777d;
-  border-color: #13777d;
+  background-color: #13777d!important;
+  border-color: #13777d!important;
+  background: #13777d!important;
 }
 .btn:not(:disabled):not(.disabled) {
   cursor: pointer;
 }
 .btn-primary:hover {
   color: #fff;
-  background-color: #0c6268;
-  border-color: #0c6268;
+  background-color: #0c6268!important;
+  border-color: #0c6268!important;
+  background: #0c6268!important;
 }
+
 .btn:hover {
   color: #212529;
   text-decoration: none;
+}
+.btn:active {
+  color: #212529;
+  text-decoration: none;
+}
+.btn-block{
+  color: #fff;
+  background-color: #13777d;
+  border-color: #13777d;
+  background: #13777d;
+}
+.btn-block :focus {     
+  color: #fff;
+  background-color: #13777d;
+  border-color: #13777d;   
+  background: #13777d;
 }
 
 .btnSubmit
@@ -55,16 +88,50 @@
   padding: 1.5%;
   border: none;
   cursor: pointer;
+  color: #fff;
+  background-color: #13777d;
+  border-color: #13777d;
+  background: #13777d;
+
+  
+}
+.btnSubmit:active
+{
+  width: 50%;
+  border-radius: 1rem;
+  padding: 1.5%;
+  border: none;
+  cursor: pointer;
+  color: #fff;
+  background-color: #13777d;
+  border-color: #13777d;
+  background: #13777d;
+
+  
+}
+
+.btnSubmit:hover
+{
+  width: 50%;
+  border-radius: 1rem;
+  padding: 1.5%;
+  border: none;
+  cursor: pointer;
+  color: #fff;
+  background-color: #13777d;
+  border-color: #13777d;
+  background: #13777d;
+
   
 }
 .login-form-1 .btnSubmit{
   font-weight: 600;
   color: #fff;
-  background-color: #0062cc;
+  background-color: #0c6268;
 }
 .login-form-2 .btnSubmit{
   font-weight: 600;
-  color: #0062cc;
+  color: #0c6268;
   background-color: #fff;
 }
 .login-form-2 .ForgetPwd{
@@ -73,7 +140,7 @@
   text-decoration: none;
 }
 .login-form-1 .ForgetPwd{
-  color: #0062cc;
+  color: #0c6268;
   font-weight: 600;
   text-decoration: none;
 }

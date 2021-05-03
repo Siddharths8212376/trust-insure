@@ -43,6 +43,23 @@
     background-color: #0c6268;
     border-color: #0c6268;
 }
+.btn-primary:active {
+    color: #fff;
+    background-color: #0c6268!important;
+    border-color: #0c6268!important;
+}
+.btn .btn-primary:hover {
+    color: #fff;
+    background-color: #0c6268!important;
+    border-color: #0c6268!important;
+}
+.btn .btn-primary:active {
+    color: #fff;
+    background-color: #0c6268!important;
+    border-color: #0c6268!important;
+}
+
+
 .btn:hover {
     color: #212529;
     text-decoration: none;
