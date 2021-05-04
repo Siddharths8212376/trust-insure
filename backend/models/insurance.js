@@ -132,10 +132,10 @@ const insuranceSchema = new mongoose.Schema({
         type: Number
     }, 
     issuanceDate: {
-        type: Number
+        type: String
     }, 
     maturityDate: {
-        type: Number
+        type: String
     },
     premiumFinal: {
         type: Number

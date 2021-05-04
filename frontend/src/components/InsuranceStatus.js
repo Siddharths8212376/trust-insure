@@ -14,8 +14,8 @@ const stateDesc = {
     1 : states[1],
     2 : states[1],
     3 : states[1],
-    4 : states[1],
-    5 : states[1],
+    4 : 'Bank UW Done',
+    5 : 'Medical UW Done',
     "-1" : states[6],
     "-2" : states[5],
     6 : states[7],
@@ -38,8 +38,8 @@ const InsuranceDetails = ({insurance}) => {
             Policy Term: {insurance.policyTerm} <br/>
             Payment Term: {insurance.paymentTerm} <br/>
             Current State: {insurance.state} ( {insurance.state >= 0 ? stateDesc[insurance.state] : 'Rejected' } )<br/>           
-            {insurance.state >= 3 && <div>Bank UW Done: {insurance.bankUWResult?"True":"False"} </div>}
-            {insurance.state >= 5 && <div>Med UW Done: {insurance.medUWResult?"True":"False"} </div>}
+            {/* {insurance.state >= 3 && <div>Bank UW Done: {insurance.bankUWResult?"True":"False"} </div>} */}
+            {/* {insurance.state >= 5 && <div>Med UW Done: {insurance.medicalUWResult?"True":"False"} </div>} */}
                 <div style={{ width: 200, height: 200, marginTop: "5%" }}>
                 {insurance.state >= 0 && insurance.state <= 7 && <CircularProgressbar
                     value={insurance.state/7*100}
@@ -211,7 +211,7 @@ const RequestMedicalUnderwritingEvent = async (insurance) => {
         console.log(deployedContract, 'to change state', accounts[0], insurance.ID, 'also')
         
         // confirm details to be called.
-        await deployedContract.methods.SendToBankUnderwriter(Number(insurance.ID)-1).send({ from: accounts[0] })
+        await deployedContract.methods.SendToMedicalUnderwriter(Number(insurance.ID)-1).send({ from: accounts[0] })
             .then(() => {
                         window.location.reload()
                     })
@@ -555,6 +555,28 @@ const UpdateMedicalHealth = ({ insurance }) => {
          e.preventDefault()
         setMedUWResult(e.target.value)
     }
+    const handleSubmitMWReject = async (e) => {
+        e.preventDefault()
+                const web3 = new Web3(Web3.givenProvider || "http://localhost:7545");
+        web3.eth.getAccounts().then(console.log);
+        if (web3) {
+            const accounts = await web3.eth.getAccounts()
+            const networkId = await web3.eth.net.getId()
+            const networkData = BlockSecureDeployer.networks[networkId]
+            if (networkData) {
+                const deployedContract = new web3.eth.Contract(BlockSecureDeployer.abi, networkData.address)
+                console.log(deployedContract, 'to change state', accounts[0], insurance.ID, 'also')
+                // confirm details to be called.
+                await deployedContract.methods.Reject(Number(insurance.ID)-1).send({ from: accounts[0] })
+                    .then(() => {
+                        window.location.reload()
+                    })
+                insurance.state = -3
+                // fetch the current insurance from the db, and update it
+                await axios.put(`http://localhost:3001/api/insurances/${insurance.ID}`, insurance)
+            }
+        }
+    }
     const handleSubmitMUWDone = async (e) => {
         e.preventDefault()
         // console.log(customerVerificationDone, active, financialHealthPoints, bankUWResult)
@@ -613,7 +635,10 @@ const UpdateMedicalHealth = ({ insurance }) => {
           
             
             
-    <button type="submit" class="btn btn-primary" onClick={handleSubmitMUWDone}>Submit</button>
+    <span>
+        <button type="submit" class="btn btn-primary" onClick={handleSubmitMUWDone} style={{marginRight:"2%"}}>Submit</button>
+        <button type="submit" class="btn btn-danger" onClick={handleSubmitMWReject}>Reject</button>
+    </span>
             </form>
         </div>
     )
@@ -660,8 +685,8 @@ const RecalculatePolicy = ({ insurance }) => {
         // console.log(customerVerificationDone, active, financialHealthPoints, bankUWResult)
         const pr = premiumReceived.toLowerCase()==='yes'?true:false
         const pn = Number(policyNumber)
-        const issd = Number(issuanceDate) 
-        const matd = Number(maturityDate)
+        const issd = issuanceDate.toString()
+        const matd = maturityDate.toString()
         const pf = Number(premiumFinal)
         const saf = Number(sumAssuredFinal)
         const pi = policyIssued.toLowerCase()==='yes'?true:false

@@ -37,8 +37,8 @@ contract SecureInsuranceContract
     bool public MedicalUnderwriting;
     bool public PremiumRecieved;
     int public PolicyNumber;
-    int public IssuanceDate;
-    int public MaturityDate;
+    string public IssuanceDate;
+    string public MaturityDate;
     int public PremiumFinal;
     int public  SumAssuredFinal;
     bool public PolicyIssued;
@@ -100,7 +100,7 @@ contract SecureInsuranceContract
          State = StateType.MedicalUnderwritingDone;
     }
 
-    function RecalculatePolicy(bool premiumRecieved,int policyNumber,int issuanceDate,int maturityDate,int premiumFinal,int sumAssuredFinal,bool policyIssued ) public {
+    function RecalculatePolicy(bool premiumRecieved,int policyNumber,string memory issuanceDate,string memory maturityDate,int premiumFinal,int sumAssuredFinal,bool policyIssued ) public {
         PremiumRecieved=premiumRecieved;
         PolicyNumber=policyNumber;
         IssuanceDate=issuanceDate;
@@ -188,7 +188,7 @@ contract BlockSecureDeployer {
         SIC.UpdateMedicalHealth(activeStatus, healthScore, physicalVerification, medicalUnderwriting);
         return uint(SIC.State());          
     } 
-    function RecalculatePolicy(uint idx, bool premiumReceived, int policyNumber, int issuanceDate, int maturityDate, int premiumFinal, int sumAssuredFinal, bool policyIssued) public returns (uint) {
+    function RecalculatePolicy(uint idx, bool premiumReceived, int policyNumber, string memory issuanceDate, string memory maturityDate, int premiumFinal, int sumAssuredFinal, bool policyIssued) public returns (uint) {
         SecureInsuranceContract SIC = SecureInsuranceContract(insurances[idx]);
         SIC.RecalculatePolicy(premiumReceived, policyNumber, issuanceDate, maturityDate, premiumFinal, sumAssuredFinal, policyIssued);
         return uint(SIC.State());        
