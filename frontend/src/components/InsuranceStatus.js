@@ -45,6 +45,11 @@ const InsuranceDetails = ({insurance}) => {
             {insurance.state >= 5 && <div>
                 Medical Health Score: {insurance.healthScore} 
                 </div>}
+            {insurance.state >= 6 && <div>
+                Premium Final: {insurance.premiumFinal} <br/>
+                Sum Assured Final: {insurance.sumAssuredFinal}
+
+                </div>}
                 <div style={{ width: 200, height: 200, marginTop: "5%" }}>
                 {insurance.state >= 0 && insurance.state <= 7 && <CircularProgressbar
                     value={insurance.state/7*100}
@@ -713,7 +718,7 @@ const RecalculatePolicy = ({ insurance }) => {
                         window.location.reload()
                     })
                 // update db
-                insurance.state = pi===true?6:-1;
+                insurance.state = pi===true?6:6;
                 insurance.premiumReceived=pr;
                 insurance.policyNumber=pn;
                 insurance.issuanceDate=issd;
