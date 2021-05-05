@@ -84,7 +84,12 @@ function App() {
        }}>
         <nav className="navbar navbar-expand navbar-dark" style={{backgroundColor:navColor, position: 'fixed', top: 0, width: "100%", zIndex: 10, boxShadow: "0px 0px 4px #121212"}}>
           <Link to={"/"} className="navbar-brand nav-title">
-            Blockchain Enabled Insurance
+            {!currentUser?<div>Blockchain Enabled Insurance</div>
+            : currentUser.user.type==='individual' ? <div>Hey {currentUser.user.username}!</div> : 
+            currentUser.user.type==='Insurer' ? <div>Welcome {currentUser.user.name}</div> : 
+            currentUser.user.type==='Bank' ? <div>Welcome {currentUser.user.name} </div> :
+            <div>Welcome {currentUser.user.name}</div>
+            }
           </Link>
 
           {currentUser ? (

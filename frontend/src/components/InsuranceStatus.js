@@ -60,7 +60,7 @@ const InsuranceDetails = ({insurance}) => {
                         strokeLinecap: 'butt',
                         textSize: '16px',
                         pathTransitionDuration: 0.5,
-                        pathColor: `rgba(173,216,230, ${(insurance.state / 7) * 1.5 > 1 ? 1 : (insurance.state / 7)})`,
+                        pathColor: `rgba(173,216,230, ${(insurance.state / 7) * 1.1 > 1 ? 1 : (insurance.state / 7)})`,
                         textColor: 'lightblue',
                         trailColor: '#212121',
                         backgroundColor: '#3e98c7',
@@ -786,16 +786,16 @@ const DisplayInsuranceStatus = ({ currentUser, insurance }) => {
             <div>
             <InsuranceDetails insurance={insurance}/> 
             {insurance.state===0&&<ConfirmDetails insurance={insurance}/>}
-            {insurance.state===1&&<div>Thanks for confirming your details. The application is being processed. </div>}
-            {insurance.state===5&&<div>The policy is being recalculated.</div>}
-            {insurance.state===-1&&<div>Your Application was rejected.</div>}
+            {insurance.state===1&&<div className="showy">Thanks for confirming your details. The application is being processed. </div>}
+            {insurance.state===5&&<div className="showy">The policy is being recalculated.</div>}
+            {insurance.state===-1&&<div className="showy">Your Application was rejected.</div>}
             {insurance.state===6&&<ConfirmPolicyFinal insurance={insurance}/>}
-            {insurance.state===7&&<div>You have confirmed the policy. You are eligible for invoking claims <InvokeClaim insurance={insurance}/></div>}
+            {insurance.state===7&&<div className="showy">You have confirmed the policy. You are eligible for invoking claims <InvokeClaim insurance={insurance}/></div>}
             {(insurance.state===8||insurance.state===9)&&<div>The claim has been invoked. Waiting for claim verification from hospital. </div>}
-            {insurance.state===10&&<div>The claim has been verified by the hospital. Waiting for final response from insurance provider</div>}
-            {insurance.state===11&&<div>The claim has been accepted! </div>}
-            {insurance.state===-2&&<div>The claim was rejected. </div>}
-            {(insurance.state===4 || insurance.state === 3)&&<div>The application is being processed </div>}
+            {insurance.state===10&&<div className="showy">The claim has been verified by the hospital. Waiting for final response from insurance provider</div>}
+            {insurance.state===11&&<div className="showy">The claim has been accepted! </div>}
+            {insurance.state===-2&&<div className="showy">The claim was rejected. </div>}
+            {(insurance.state===4 || insurance.state === 3)&&<div className="showy">The application is being processed </div>}
             
             </div>
         )
@@ -804,18 +804,18 @@ const DisplayInsuranceStatus = ({ currentUser, insurance }) => {
             <div>
                 <InsuranceDetails insurance={insurance}/>
                 {insurance.state===1&&<RequestBankUnderwriting insurance={insurance}/>}
-                {insurance.state===2&&<div>Requested Bank Underwriting</div>}
+                {insurance.state===2&&<div className="showy">Requested Bank Underwriting</div>}
                 {insurance.state===3&&<RequestMedicalUnderwriting insurance={insurance}/>}
-                {insurance.state===4&&<div>Requested Medical Underwriting</div>}
+                {insurance.state===4&&<div className="showy">Requested Medical Underwriting</div>}
                 {insurance.state===5&&<RecalculatePolicy insurance={insurance}/>}
-                {insurance.state===6&&<div>The insurance application was approved. Waiting for client confirmation.</div>}
-                {insurance.state===7&&<div>The client has accepted the policy.</div>}
-                {insurance.state===8&&<div>The client has invoked the claim. <ClaimVerificationFromHospital insurance={insurance}/> </div>}
-                {insurance.state===9&&<div>The claim has been requested for verification from the hospital </div>}
-                {insurance.state===10&&<div>The claim has been verified. <AcceptOrRejectClaim insurance={insurance}/></div>}
-                {insurance.state===11&&<div>The claim has been accepted! </div>}
-                {insurance.state===-2&&<div>The claim was rejected. </div>}
-                {insurance.state===-1&&<div>The insurance application was rejected</div>}
+                {insurance.state===6&&<div className="showy">The insurance application was approved. Waiting for client confirmation.</div>}
+                {insurance.state===7&&<div className="showy">The client has accepted the policy.</div>}
+                {insurance.state===8&&<div className="showy">The client has invoked the claim. <ClaimVerificationFromHospital insurance={insurance}/> </div>}
+                {insurance.state===9&&<div className="showy">The claim has been requested for verification from the hospital </div>}
+                {insurance.state===10&&<div className="showy">The claim has been verified. <AcceptOrRejectClaim insurance={insurance}/></div>}
+                {insurance.state===11&&<div className="showy">The claim has been accepted! </div>}
+                {insurance.state===-2&&<div className="showy">The claim was rejected. </div>}
+                {insurance.state===-1&&<div className="showy">The insurance application was rejected</div>}
             </div>
         )
     } else if (currentUser.user.type==='Bank') {
@@ -823,12 +823,12 @@ const DisplayInsuranceStatus = ({ currentUser, insurance }) => {
             <div>
                 <InsuranceDetails insurance={insurance}/>
                 {insurance.state===2&&<UpdateFinancialHealth insurance={insurance}/>}
-                {insurance.state===3&&<div>Financial Health Updated. Sent to Insurance Provider. </div>}
-                {insurance.state===4&&<div>Requested Medical Underwriting</div>}
-                {insurance.state===5&&<div>Medical Underwriting Done. Health Score Updated.</div>}
-                {insurance.state===6&&<div>The insurance application was approved. Waiting for client confirmation </div>}
-                {insurance.state===7&&<div>The client has accepted the policy </div>}
-                {insurance.state===-1&&<div>The insurance application was rejected.</div>}
+                {insurance.state===3&&<div className="showy">Financial Health Updated. Sent to Insurance Provider. </div>}
+                {insurance.state===4&&<div className="showy">Requested Medical Underwriting</div>}
+                {insurance.state===5&&<div className="showy">Medical Underwriting Done. Health Score Updated.</div>}
+                {insurance.state===6&&<div className="showy">The insurance application was approved. Waiting for client confirmation </div>}
+                {insurance.state===7&&<div className="showy">The client has accepted the policy </div>}
+                {insurance.state===-1&&<div className="showy">The insurance application was rejected.</div>}
 
             </div>
         )
@@ -837,12 +837,12 @@ const DisplayInsuranceStatus = ({ currentUser, insurance }) => {
             <div>
                 <InsuranceDetails insurance={insurance}/>
                 {insurance.state===4&&<UpdateMedicalHealth insurance={insurance}/>}
-                {insurance.state===5&&<div>Medical Underwriting Done. Health Score Updated.</div>}
-                {insurance.state===6&&<div>The insurance application was approved. Waiting for client confirmation </div>}
-                {insurance.state===7&&<div>The client has accepted the policy </div>}
-                {insurance.state===-1&&<div>The insurance application was rejected</div>}
-                {insurance.state===9&&<div>The claim was invoked. Please verify claim details and submit. <SubmitClaimDetails insurance={insurance}/> </div>}
-                {insurance.state===10&&<div>The claim was verified.</div>}
+                {insurance.state===5&&<div className="showy">Medical Underwriting Done. Health Score Updated.</div>}
+                {insurance.state===6&&<div className="showy">The insurance application was approved. Waiting for client confirmation </div>}
+                {insurance.state===7&&<div className="showy">The client has accepted the policy </div>}
+                {insurance.state===-1&&<div className="showy">The insurance application was rejected</div>}
+                {insurance.state===9&&<div className="showy">The claim was invoked. Please verify claim details and submit. <SubmitClaimDetails insurance={insurance}/> </div>}
+                {insurance.state===10&&<div className="showy">The claim was verified.</div>}
             </div>
         )
     }
