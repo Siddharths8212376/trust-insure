@@ -38,8 +38,13 @@ const InsuranceDetails = ({insurance}) => {
             Policy Term: {insurance.policyTerm} <br/>
             Payment Term: {insurance.paymentTerm} <br/>
             Current State: {insurance.state} ( {insurance.state >= 0 ? stateDesc[insurance.state] : 'Rejected' } )<br/>           
-            {/* {insurance.state >= 3 && <div>Bank UW Done: {insurance.bankUWResult?"True":"False"} </div>} */}
-            {/* {insurance.state >= 5 && <div>Med UW Done: {insurance.medicalUWResult?"True":"False"} </div>} */}
+            {insurance.state >= 3 && <div>
+                Bank UW Done: {insurance.bankUWResult?"True":"False"} <br/> 
+                Financial Health Points: {insurance.financialHealthPoints}
+                </div>}
+            {insurance.state >= 5 && <div>
+                Medical Health Score: {insurance.healthScore} 
+                </div>}
                 <div style={{ width: 200, height: 200, marginTop: "5%" }}>
                 {insurance.state >= 0 && insurance.state <= 7 && <CircularProgressbar
                     value={insurance.state/7*100}
