@@ -30,11 +30,11 @@ contract SecureInsuranceContract
     bool public CustomerVerification;
     bool public Active;
     int public FinancialHealthPoints;
-    bool public BankUnderwritingResult;
+    string public BankUnderwritingResult;
     bool public ActiveStatus;
     int public HealthScore;
     bool public PhysicalVerification;
-    bool public MedicalUnderwriting;
+    string public MedicalUnderwriting;
     bool public PremiumRecieved;
     int public PolicyNumber;
     string public IssuanceDate;
@@ -76,7 +76,7 @@ contract SecureInsuranceContract
         State = StateType.BankUnderwriting;
     }
 
-    function UpdateFinancialHealth(bool customerVerification,bool active,int financialHealthPoints,bool bankUnderwritingResult) public {
+    function UpdateFinancialHealth(bool customerVerification,bool active,int financialHealthPoints,string memory bankUnderwritingResult) public {
         BankUnderwriter = msg.sender;
         CustomerVerification=customerVerification;
         Active=active;
@@ -90,7 +90,7 @@ contract SecureInsuranceContract
          State = StateType.MedicalUnderwriting;
     }
 
-    function  UpdateMedicalHealth(bool activeStatus,int healthScore,bool physicalVerification,bool medicalUnderwriting) public {
+    function  UpdateMedicalHealth(bool activeStatus,int healthScore,bool physicalVerification,string memory medicalUnderwriting) public {
          MedicalUnderwriter = msg.sender;
          ActiveStatus=activeStatus;
          HealthScore=healthScore;
@@ -171,7 +171,7 @@ contract BlockSecureDeployer {
         SIC.SendToBankUnderwriter();
         return uint(SIC.State());
     }
-    function UpdateFinancialHealth(uint idx, bool customerVerification, bool active, int financialHealthPoints, bool bankUnderwritingResult) public returns (uint) {
+    function UpdateFinancialHealth(uint idx, bool customerVerification, bool active, int financialHealthPoints, string memory bankUnderwritingResult) public returns (uint) {
         // fetch the required insurance
         SecureInsuranceContract SIC = SecureInsuranceContract(insurances[idx]);
         SIC.UpdateFinancialHealth(customerVerification, active, financialHealthPoints, bankUnderwritingResult);
@@ -183,7 +183,7 @@ contract BlockSecureDeployer {
         SIC.SendToMedicalUnderwriter();
         return uint(SIC.State());        
     }
-    function UpdateMedicalHealth(uint idx, bool activeStatus, int healthScore, bool physicalVerification, bool medicalUnderwriting) public returns (uint) {
+    function UpdateMedicalHealth(uint idx, bool activeStatus, int healthScore, bool physicalVerification, string memory medicalUnderwriting) public returns (uint) {
         SecureInsuranceContract SIC = SecureInsuranceContract(insurances[idx]);
         SIC.UpdateMedicalHealth(activeStatus, healthScore, physicalVerification, medicalUnderwriting);
         return uint(SIC.State());          

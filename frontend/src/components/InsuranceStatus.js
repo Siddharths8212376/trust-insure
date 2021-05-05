@@ -39,10 +39,11 @@ const InsuranceDetails = ({insurance}) => {
             Payment Term: {insurance.paymentTerm} <br/>
             Current State: {insurance.state} ( {insurance.state >= 0 ? stateDesc[insurance.state] : 'Rejected' } )<br/>           
             {insurance.state >= 3 && <div>
-                Bank UW Done: {insurance.bankUWResult?"True":"False"} <br/> 
+                Bank UW Result: {insurance.bankUWResult} <br/> 
                 Financial Health Points: {insurance.financialHealthPoints}
                 </div>}
             {insurance.state >= 5 && <div>
+                Medical UW Result: {insurance.medicalUWResult} <br/>
                 Medical Health Score: {insurance.healthScore} 
                 </div>}
             {insurance.state >= 6 && <div>
@@ -491,7 +492,7 @@ const UpdateFinancialHealth = ({ insurance }) => {
         const cv = customerVerificationDone.toLowerCase()==='yes'?true:false
         const act = active.toLowerCase()==='yes'?true:false
         const fhp = Number(financialHealthPoints)
-        const buwr = (bankUWResult.toLowerCase()==='yes'||bankUWResult.toLowerCase()==='done')?true:false
+        const buwr = bankUWResult
         console.log(cv, act, fhp, buwr)
         const web3 = new Web3(Web3.givenProvider || "http://localhost:7545");
         web3.eth.getAccounts().then(console.log);
@@ -593,7 +594,7 @@ const UpdateMedicalHealth = ({ insurance }) => {
         const pv = physicalVerificationDone.toLowerCase()==='yes'?true:false
         const act = activeStatus.toLowerCase()==='yes'?true:false
         const mhp = Number(healthScore)
-        const muwr = (medUWResult.toLowerCase()==='yes'||medUWResult.toLowerCase()==='done')?true:false
+        const muwr = medUWResult
         console.log(pv, act, mhp, muwr)
         const web3 = new Web3(Web3.givenProvider || "http://localhost:7545");
         web3.eth.getAccounts().then(console.log);
@@ -615,7 +616,7 @@ const UpdateMedicalHealth = ({ insurance }) => {
                 insurance.healthScore=mhp;
                 insurance.physicalVerification=pv;
                 insurance.activeStatus=act;
-                insurance.medUWResult=muwr;
+                insurance.medicalUWResult=muwr;
                 // fetch the current insurance from the db, and update it
                 await axios.put(`http://localhost:3001/api/insurances/${insurance.ID}`, insurance)
             }

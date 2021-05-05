@@ -111,7 +111,7 @@ const insuranceSchema = new mongoose.Schema({
         type: Number
     }, 
     bankUWResult: {
-        type: Boolean
+        type: String
     },
     activeStatus: {
         type: Boolean
@@ -123,7 +123,7 @@ const insuranceSchema = new mongoose.Schema({
         type: Boolean
     }, 
     medicalUWResult: {
-        type: Boolean
+        type: String
     }, 
     premiumReceived: {
         type: Boolean
