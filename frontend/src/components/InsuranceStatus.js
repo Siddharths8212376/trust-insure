@@ -714,12 +714,13 @@ const RecalculatePolicy = ({ insurance }) => {
                 console.log(deployedContract, 'to change state', accounts[0], insurance.ID, 'also')
                 
                 // confirm details to be called.
+                if (pi===true) {
                 await deployedContract.methods.RecalculatePolicy(Number(insurance.ID)-1, pr, pn, issd, matd, pf, saf, pi).send({ from: accounts[0] })
                     .then(() => {
                         window.location.reload()
                     })
                 // update db
-                insurance.state = pi===true?6:6;
+                insurance.state = 6;
                 insurance.premiumReceived=pr;
                 insurance.policyNumber=pn;
                 insurance.issuanceDate=issd;
@@ -729,6 +730,16 @@ const RecalculatePolicy = ({ insurance }) => {
                 insurance.policyIssued=pi;
                 // fetch the current insurance from the db, and update it
                 await axios.put(`http://localhost:3001/api/insurances/${insurance.ID}`, insurance)
+                } else {
+                    await deployedContract.methods.Reject(Number(insurance.ID)-1)
+                        
+                    insurance.state = -1;
+                    await axios.put(`http://localhost:3001/api/insurances/${insurance.ID}`, insurance)
+                        .then(() => {
+                            window.location.reload()
+                        })
+                    
+                }
             }
         }
     }
